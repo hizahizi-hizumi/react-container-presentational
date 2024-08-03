@@ -13,11 +13,11 @@ export default function Tasks(): React.JSX.Element {
 
   const [open, setOpen] = useState(false);
 
-  function handleOpen() {
+  function handleModalOpen() {
     setOpen(true);
   }
 
-  function handleClose() {
+  function handleModalClose() {
     setOpen(false);
   }
 
@@ -31,7 +31,7 @@ export default function Tasks(): React.JSX.Element {
   function onSuccess(task: TaskParams) {
     setIsSuccess(true);
     setCreatedTask(task);
-    handleClose();
+    handleModalClose();
   }
 
   if (isLoading) {
@@ -44,7 +44,7 @@ export default function Tasks(): React.JSX.Element {
   return (
     <>
       <h1>Tasks</h1>
-      <button type="button" onClick={handleOpen}>
+      <button type="button" onClick={handleModalOpen}>
         タスク作成
       </button>
       <TaskList tasks={tasks} />
@@ -66,7 +66,7 @@ export default function Tasks(): React.JSX.Element {
 
       <CreateTaskModal
         isOpen={open}
-        onClose={handleClose}
+        onClose={handleModalClose}
         onSuccess={onSuccess}
       />
     </>
