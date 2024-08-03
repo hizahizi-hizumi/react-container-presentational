@@ -1,18 +1,16 @@
 import { useForm } from "react-hook-form";
 
-import type { Task } from "@/types/task";
-
-type TaskInputs = Omit<Task, "id">;
+import type { TaskParams } from "@/pages/tasks/types/taskParams";
 
 interface CreateTaskFormProps {
   canSubmit: boolean;
-  onSubmit: (data: TaskInputs) => void;
+  onSubmit: (data: TaskParams) => void;
 }
 
 export function CreateTaskForm(props: CreateTaskFormProps): React.JSX.Element {
   const { canSubmit, onSubmit } = props;
 
-  const { register, handleSubmit } = useForm<TaskInputs>();
+  const { register, handleSubmit } = useForm<TaskParams>();
 
   return (
     <>

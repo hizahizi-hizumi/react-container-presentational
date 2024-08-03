@@ -1,10 +1,9 @@
 import { useGet } from "@/hooks/useGet";
 import { usePost } from "@/hooks/usePost";
+import type { TaskParams } from "@/pages/tasks/types/taskParams";
 import type { Task } from "@/types/task";
 
 const ENDPOINT = "/tasks";
-
-type TaskParams = Omit<Task, "id">;
 
 interface UseTasksReturns {
   tasks: Task[];
