@@ -1,15 +1,9 @@
 import type React from "react";
 
-import { useGet } from "@/hooks/useGet";
-import type { Task } from "@/types/task";
+import { useTasks } from "./hooks/useTasks";
 
 export default function Tasks(): React.JSX.Element {
-  interface GetTasksResponseBody {
-    tasks: Task[];
-  }
-
-  const { data, error, isLoading } = useGet<GetTasksResponseBody>("/tasks");
-  const tasks = data?.tasks ?? [];
+  const { tasks, error, isLoading } = useTasks();
 
   if (isLoading) {
     return <p>Loading...</p>;
