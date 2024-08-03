@@ -1,9 +1,9 @@
 import type React from "react";
 
-import { useForm } from "react-hook-form";
 import type { Arguments } from "swr";
 import useSWRMutation from "swr/mutation";
 
+import { CreateTaskForm } from "./_components/CreateTaskForm/CreateTaskForm";
 import { useTasks } from "./hooks/useTasks";
 
 export default function Tasks(): React.JSX.Element {
@@ -12,8 +12,6 @@ export default function Tasks(): React.JSX.Element {
   type Inputs = {
     title: string;
   };
-
-  const { register, handleSubmit } = useForm<Inputs>();
 
   async function createTask(url: string, { arg }: { arg: Arguments }) {
     const res = await fetch(url, {
@@ -45,13 +43,7 @@ export default function Tasks(): React.JSX.Element {
   return (
     <>
       <h1>Tasks</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Title</label>
-        <input {...register("title")} />
-        <button type="submit" disabled={!canSubmit}>
-          作成
-        </button>
-      </form>
+      <CreateTaskForm canSubmit={canSubmit} onSubmit={onSubmit} />
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>{task.title}</li>
