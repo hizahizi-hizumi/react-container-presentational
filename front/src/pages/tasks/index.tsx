@@ -2,19 +2,17 @@ import type React from "react";
 
 import { CreateTaskForm } from "./_components/CreateTaskForm/CreateTaskForm";
 import { useTasks } from "./hooks/useTasks";
-import { usePost } from "@/hooks/usePost";
 
 export default function Tasks(): React.JSX.Element {
-  const { tasks, error, isLoading } = useTasks();
+  const { tasks, error, isLoading, api } = useTasks();
+  const { createTask, isMutating } = api.create;
 
   type Inputs = {
     title: string;
   };
 
-  const { trigger, isMutating } = usePost("/tasks");
-
   function onSubmit(data: Inputs) {
-    trigger(data);
+    createTask(data);
   }
 
   const canSubmit = !isMutating;

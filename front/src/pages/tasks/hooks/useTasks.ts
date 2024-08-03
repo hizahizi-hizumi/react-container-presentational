@@ -1,10 +1,21 @@
 import { useGet } from "@/hooks/useGet";
+import { usePost } from "@/hooks/usePost";
 import type { Task } from "@/types/task";
+
+const ENDPOINT = "/tasks";
+
+type TaskParams = Omit<Task, "id">;
 
 interface UseTasksReturns {
   tasks: Task[];
   error: Error | null;
   isLoading: boolean;
+  api: {
+    create: {
+      createTask: (params: TaskParams) => void;
+      isMutating: boolean;
+    };
+  };
 }
 
 export function useTasks(): UseTasksReturns {
@@ -12,8 +23,15 @@ export function useTasks(): UseTasksReturns {
     tasks: Task[];
   }
 
-  const { data, error, isLoading } = useGet<GetTasksResponseBody>("/tasks");
+  const { data, error, isLoading } = useGet<GetTasksResponseBody>(ENDPOINT);
   const tasks = data?.tasks ?? [];
 
-  return { tasks, error, isLoading };
+  const { trigger: createTask, isMutating } = usePost(ENDPOINT);
+
+  return {
+    tasks,
+    error,
+    isLoading,
+    api: { create: { createTask, isMutating } },
+  };
 }
