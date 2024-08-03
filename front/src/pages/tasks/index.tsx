@@ -8,7 +8,7 @@ import type { TaskParams } from "./types/taskParams";
 
 export default function Tasks(): React.JSX.Element {
   const { tasks, error, isLoading, api } = useTasks();
-  const { createTask, isMutating, createdTask, createError } = api.create;
+  const { isMutating, createdTask, createError } = api.create;
 
   const [open, setOpen] = useState(false);
 
@@ -20,8 +20,7 @@ export default function Tasks(): React.JSX.Element {
     setOpen(false);
   }
 
-  function onSubmit(data: TaskParams) {
-    createTask(data);
+  function onSuccess(_: TaskParams) {
     handleClose();
   }
 
@@ -40,7 +39,6 @@ export default function Tasks(): React.JSX.Element {
       <button type="button" onClick={handleOpen}>
         タスク作成
       </button>
-      {createError && <p>{createError.message}</p>}
       {createdTask && !createError && <p>Task created: {createdTask.title}</p>}
       <TaskList tasks={tasks} />
 
@@ -48,7 +46,7 @@ export default function Tasks(): React.JSX.Element {
         isOpen={open}
         canSubmit={canSubmit}
         onClose={handleClose}
-        onSubmit={onSubmit}
+        onSuccess={onSuccess}
       />
     </>
   );

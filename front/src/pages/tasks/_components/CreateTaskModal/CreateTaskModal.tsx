@@ -2,7 +2,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 
@@ -13,13 +12,13 @@ interface CreateTaskModalProps {
   isOpen: boolean;
   canSubmit: boolean;
   onClose: () => void;
-  onSubmit: (params: TaskParams) => void;
+  onSuccess: (params: TaskParams) => void;
 }
 
 export function CreateTaskModal(
   props: CreateTaskModalProps,
 ): React.JSX.Element {
-  const { isOpen, canSubmit, onClose, onSubmit } = props;
+  const { isOpen, canSubmit, onClose, onSuccess } = props;
 
   const formId = "create-task-form";
 
@@ -27,9 +26,7 @@ export function CreateTaskModal(
     <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>タスク作成</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          <CreateTaskForm formId={formId} onSubmit={onSubmit} />
-        </DialogContentText>
+        <CreateTaskForm formId={formId} onSuccess={onSuccess} />
       </DialogContent>
       <DialogActions>
         <button type="button" onClick={onClose}>
