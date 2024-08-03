@@ -8,7 +8,7 @@ import type { TaskParams } from "./types/taskParams";
 
 export default function Tasks(): React.JSX.Element {
   const { tasks, error, isLoading, api } = useTasks();
-  const { isMutating, createdTask, createError } = api.create;
+  const { createdTask, createError } = api.create;
 
   const [open, setOpen] = useState(false);
 
@@ -23,8 +23,6 @@ export default function Tasks(): React.JSX.Element {
   function onSuccess(_: TaskParams) {
     handleClose();
   }
-
-  const canSubmit = !isMutating;
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -44,7 +42,6 @@ export default function Tasks(): React.JSX.Element {
 
       <CreateTaskModal
         isOpen={open}
-        canSubmit={canSubmit}
         onClose={handleClose}
         onSuccess={onSuccess}
       />

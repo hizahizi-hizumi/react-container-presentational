@@ -5,12 +5,12 @@ import {
   DialogTitle,
 } from "@mui/material";
 
+import { useTasks } from "../../hooks/useTasks";
 import type { TaskParams } from "../../types/taskParams";
 import { CreateTaskForm } from "../CreateTaskForm/CreateTaskForm";
 
 interface CreateTaskModalProps {
   isOpen: boolean;
-  canSubmit: boolean;
   onClose: () => void;
   onSuccess: (params: TaskParams) => void;
 }
@@ -18,9 +18,13 @@ interface CreateTaskModalProps {
 export function CreateTaskModal(
   props: CreateTaskModalProps,
 ): React.JSX.Element {
-  const { isOpen, canSubmit, onClose, onSuccess } = props;
+  const { isOpen, onClose, onSuccess } = props;
 
   const formId = "create-task-form";
+
+  const { api } = useTasks();
+  const { isMutating } = api.create;
+  const canSubmit = !isMutating;
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
