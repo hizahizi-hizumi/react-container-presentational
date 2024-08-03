@@ -10,7 +10,7 @@ type PostTasksRequestBody = {
 };
 
 type PostTasksResponseBody = {
-  task: Task | null;
+  data: Task | null;
   message: string;
 };
 
@@ -29,7 +29,7 @@ export const post = http.post<
   if (isParamsValid) {
     return HttpResponse.json(
       {
-        task: null,
+        data: null,
         message: `Task with title "${req.title}" already exists`,
       },
       { status: 400 },
@@ -45,5 +45,5 @@ export const post = http.post<
 
   addTask(task);
 
-  return HttpResponse.json({ task: task, message: "" }, { status: 201 });
+  return HttpResponse.json({ data: task, message: "" }, { status: 201 });
 });
