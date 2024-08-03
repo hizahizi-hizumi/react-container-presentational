@@ -32,7 +32,8 @@ type PostTasksRequestBody = {
 };
 
 type PostTasksResponseBody = {
-  task: Task;
+  task: Task | null;
+  message: string;
 };
 
 const post = http.post<
@@ -43,6 +44,19 @@ const post = http.post<
 >("/tasks", async ({ request }) => {
   const req = await request.json();
 
+  const taskTitles = allTasks.map((task) => task.title);
+  const isParamsValid = taskTitles.includes(req.title);
+
+  if (isParamsValid) {
+    return HttpResponse.json(
+      {
+        task: null,
+        message: `Task with title "${req.title}" already exists`,
+      },
+      { status: 400 },
+    );
+  }
+
   const sortedTasks = [...allTasks].sort((a, b) => b.id - a.id);
 
   const task = {
@@ -52,7 +66,7 @@ const post = http.post<
 
   allTasks.push(task);
 
-  return HttpResponse.json({ task: task }, { status: 201 });
+  return HttpResponse.json({ task: task, message: "" }, { status: 201 });
 });
 
 export const handlers = [get, post];
