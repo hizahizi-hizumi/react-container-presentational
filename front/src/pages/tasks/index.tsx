@@ -1,25 +1,30 @@
 import type React from "react";
-import { useEffect, useState } from "react";
+
+import useSWR from "swr";
 
 import type { Task } from "@/types/task";
 
 export default function Tasks(): React.JSX.Element {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
   interface GetTasksResponseBody {
     tasks: Task[];
   }
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const response = await fetch("/tasks");
-      const body: GetTasksResponseBody = await response.json();
-      const tasks = body.tasks;
-      setTasks(tasks);
-    };
+  function fetcher(url: string) {
+    return fetch(url).then((res) => res.json());
+  }
 
-    fetchTasks();
-  }, []);
+  const { data, error, isLoading } = useSWR<GetTasksResponseBody>(
+    "/tasks",
+    fetcher,
+  );
+  const tasks = data?.tasks ?? [];
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>failed to Load</p>;
+  }
 
   return (
     <>
