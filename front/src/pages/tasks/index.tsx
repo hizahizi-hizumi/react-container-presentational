@@ -1,9 +1,8 @@
 import { useState } from "react";
 import type React from "react";
 
-import { Alert, Snackbar } from "@mui/material";
-
 import { CreateTaskModal } from "./_components/CreateTaskModal/CreateTaskModal";
+import { SuccessSnackbar } from "./_components/SuccessSnackbar/SuccessSnackbar";
 import { TaskList } from "./_components/TaskList/TaskList";
 import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
@@ -53,20 +52,11 @@ export default function Tasks(): React.JSX.Element {
       </button>
       <TaskList tasks={tasks} />
 
-      <Snackbar
-        open={isSuccess}
-        autoHideDuration={5000}
+      <SuccessSnackbar
+        isOpen={isSuccess}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          {createdTask?.title} を作成しました
-        </Alert>
-      </Snackbar>
+        message={`タスク「${createdTask?.title}」を作成しました`}
+      />
 
       <CreateTaskModal
         isOpen={open}
