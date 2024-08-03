@@ -43,7 +43,7 @@ const post = http.post<
 >("/tasks", async ({ request }) => {
   const req = await request.json();
 
-  const sortedTasks = allTasks.sort((a, b) => b.id - a.id);
+  const sortedTasks = [...allTasks].sort((a, b) => b.id - a.id);
 
   const task = {
     id: sortedTasks[0].id + 1,
