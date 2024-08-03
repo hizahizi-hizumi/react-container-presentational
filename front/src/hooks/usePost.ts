@@ -19,14 +19,15 @@ async function fetcher(url: string, { arg }: { arg: Arguments }) {
   return result.data;
 }
 
-interface UsePostParams {
+interface UsePostParams<T> {
   trigger: (arg: Arguments) => void;
   isMutating: boolean;
+  data: T | null;
   error: Error | null;
 }
 
-export function usePost(url: string): UsePostParams {
-  const { trigger, isMutating, error } = useSWRMutation(url, fetcher);
+export function usePost<T>(url: string): UsePostParams<T> {
+  const { trigger, isMutating, data, error } = useSWRMutation(url, fetcher);
 
-  return { trigger, isMutating, error };
+  return { trigger, isMutating, data, error };
 }
