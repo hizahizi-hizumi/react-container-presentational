@@ -7,7 +7,7 @@ import type { TaskParams } from "./types/taskParams";
 
 export default function Tasks(): React.JSX.Element {
   const { tasks, error, isLoading, api } = useTasks();
-  const { createTask, isMutating } = api.create;
+  const { createTask, isMutating, createError } = api.create;
 
   function onSubmit(data: TaskParams) {
     createTask(data);
@@ -25,6 +25,7 @@ export default function Tasks(): React.JSX.Element {
   return (
     <>
       <h1>Tasks</h1>
+      {createError && <p>{createError.message}</p>}
       <CreateTaskForm canSubmit={canSubmit} onSubmit={onSubmit} />
       <TaskList tasks={tasks} />
     </>

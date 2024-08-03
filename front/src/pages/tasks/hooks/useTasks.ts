@@ -13,6 +13,7 @@ interface UseTasksReturns {
     create: {
       createTask: (params: TaskParams) => void;
       isMutating: boolean;
+      createError: Error | null;
     };
   };
 }
@@ -25,12 +26,16 @@ export function useTasks(): UseTasksReturns {
   const { data, error, isLoading } = useGet<GetTasksResponseBody>(ENDPOINT);
   const tasks = data?.tasks ?? [];
 
-  const { trigger: createTask, isMutating } = usePost(ENDPOINT);
+  const {
+    trigger: createTask,
+    isMutating,
+    error: createError,
+  } = usePost(ENDPOINT);
 
   return {
     tasks,
     error,
     isLoading,
-    api: { create: { createTask, isMutating } },
+    api: { create: { createTask, isMutating, createError } },
   };
 }
