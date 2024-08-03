@@ -1,9 +1,9 @@
-import { Hoge } from "@/components/Hoge/Hoge";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
     <div>
-      <Hoge />
+      Hoge
     </div>
   );
 }
