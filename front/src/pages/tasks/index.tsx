@@ -24,12 +24,16 @@ export default function Tasks(): React.JSX.Element {
   const [isSuccess, setIsSuccess] = useState(false);
   const [createdTask, setCreatedTask] = useState<TaskParams | null>(null);
 
+  function handleSnackbarOpen() {
+    setIsSuccess(true);
+  }
+
   function handleSnackbarClose() {
     setIsSuccess(false);
   }
 
   function onSuccess(task: TaskParams) {
-    setIsSuccess(true);
+    handleSnackbarOpen();
     setCreatedTask(task);
     handleModalClose();
   }
