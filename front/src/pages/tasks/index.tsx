@@ -1,7 +1,6 @@
 import type React from "react";
 
-import useSWR from "swr";
-
+import { useGet } from "@/hooks/useGet";
 import type { Task } from "@/types/task";
 
 export default function Tasks(): React.JSX.Element {
@@ -9,14 +8,7 @@ export default function Tasks(): React.JSX.Element {
     tasks: Task[];
   }
 
-  function fetcher(url: string) {
-    return fetch(url).then((res) => res.json());
-  }
-
-  const { data, error, isLoading } = useSWR<GetTasksResponseBody>(
-    "/tasks",
-    fetcher,
-  );
+  const { data, error, isLoading } = useGet<GetTasksResponseBody>("/tasks");
   const tasks = data?.tasks ?? [];
 
   if (isLoading) {
