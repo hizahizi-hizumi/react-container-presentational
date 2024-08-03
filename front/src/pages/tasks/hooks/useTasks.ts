@@ -11,7 +11,7 @@ interface UseTasksReturns {
   isLoading: boolean;
   api: {
     create: {
-      createTask: (params: TaskParams) => void;
+      createTask: (params: TaskParams) => Promise<void>;
       isMutating: boolean;
       createdTask: Task | null;
       createError: Error | null;
@@ -28,11 +28,15 @@ export function useTasks(): UseTasksReturns {
   const tasks = data?.tasks ?? [];
 
   const {
-    trigger: createTask,
+    trigger: createTaskTrigger,
     isMutating,
     data: createdTask,
     error: createError,
   } = usePost<Task>(ENDPOINT);
+
+  async function createTask(params: TaskParams) {
+    await createTaskTrigger(params);
+  }
 
   return {
     tasks,

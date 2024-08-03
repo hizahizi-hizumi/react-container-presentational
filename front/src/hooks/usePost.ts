@@ -20,7 +20,7 @@ async function fetcher(url: string, { arg }: { arg: Arguments }) {
 }
 
 interface UsePostParams<T> {
-  trigger: (arg: Arguments) => void;
+  trigger: (arg: Arguments) => Promise<void>;
   isMutating: boolean;
   data: T | null;
   error: Error | null;
