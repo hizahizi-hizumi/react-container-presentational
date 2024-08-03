@@ -8,6 +8,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "@/theme";
 import "@/reset.css";
 import "@/main.css";
+import { setupMsw } from "@/mocks/setupMsw";
+
+setupMsw();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
