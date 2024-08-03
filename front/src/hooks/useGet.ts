@@ -6,13 +6,13 @@ async function fetcher<T>(url: string): Promise<T> {
   return res.json();
 }
 
-interface UseGetParams {
-  data: any;
+interface UseGetParams<T> {
+  data: T | undefined;
   error: Error | null;
   isLoading: boolean;
 }
 
-export function useGet<T>(url: string): UseGetParams {
+export function useGet<T>(url: string): UseGetParams<T> {
   const { data, error, isLoading } = useSWR<T>(url, fetcher);
 
   return { data, error, isLoading };

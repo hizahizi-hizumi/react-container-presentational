@@ -1,10 +1,8 @@
 import type React from "react";
 
-import type { Arguments } from "swr";
-import useSWRMutation from "swr/mutation";
-
 import { CreateTaskForm } from "./_components/CreateTaskForm/CreateTaskForm";
 import { useTasks } from "./hooks/useTasks";
+import { usePost } from "@/hooks/usePost";
 
 export default function Tasks(): React.JSX.Element {
   const { tasks, error, isLoading } = useTasks();
@@ -13,19 +11,7 @@ export default function Tasks(): React.JSX.Element {
     title: string;
   };
 
-  async function createTask(url: string, { arg }: { arg: Arguments }) {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(arg),
-    });
-
-    return res.json();
-  }
-
-  const { trigger, isMutating } = useSWRMutation("/tasks", createTask);
+  const { trigger, isMutating } = usePost("/tasks");
 
   function onSubmit(data: Inputs) {
     trigger(data);
