@@ -42,6 +42,6 @@ export function useTasks(): UseTasksReturns {
     tasks,
     error,
     isLoading,
-    api: { create: { createTask, isMutating, createdTask, createError } },
+    api: { create: { createTask, isCreating, createdTask, createError } },
   };
 }

@@ -23,8 +23,8 @@ export function CreateTaskModal(
   const formId = "create-task-form";
 
   const { api } = useTasks();
-  const { isMutating } = api.create;
-  const canSubmit = !isMutating;
+  const { isCreating } = api.create;
+  const canSubmit = !isCreating;
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
