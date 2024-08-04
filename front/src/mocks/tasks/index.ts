@@ -1,4 +1,5 @@
 import type { Task } from "@/types/task";
+import { delete_ } from "./delete";
 import { get } from "./get";
 import { post } from "./post";
 import { put } from "./put";
@@ -21,4 +22,9 @@ export function updateTask(task: Task): void {
   tasks[index] = task;
 }
 
-export const handlers = [get, post, put];
+export function deleteTask(id: number): void {
+  const index = tasks.findIndex((t) => t.id === id);
+  tasks.splice(index, 1);
+}
+
+export const handlers = [get, post, put, delete_];
