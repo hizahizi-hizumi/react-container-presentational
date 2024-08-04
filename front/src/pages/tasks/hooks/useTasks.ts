@@ -60,11 +60,11 @@ export function useTasks(): UseTasksReturns {
   } = usePut<TaskParams, Task>(ENDPOINT);
 
   async function updateTask(id: number | undefined, params: TaskParams) {
-    if (id !== undefined) {
-      await updateTaskTrigger({ id, params });
-    } else {
+    if (id === undefined) {
       throw new Error("ID is undefined");
     }
+
+    await updateTaskTrigger({ id, params });
   }
 
   const {
