@@ -3,10 +3,11 @@ import type { Task } from "@/types/task";
 interface TaskListProps {
   tasks: Task[];
   onUpdate: (task: Task) => void;
+  onDelete: (task: Task) => void;
 }
 
 export function TaskList(props: TaskListProps): React.JSX.Element {
-  const { tasks, onUpdate } = props;
+  const { tasks, onUpdate,onDelete } = props;
 
   return (
     <ul>
@@ -15,6 +16,9 @@ export function TaskList(props: TaskListProps): React.JSX.Element {
           {task.title}
           <button type="button" onClick={() => onUpdate(task)}>
             編集
+          </button>
+          <button type="button" onClick={() => onDelete(task)}>
+            削除
           </button>
         </li>
       ))}

@@ -3,6 +3,7 @@ import type React from "react";
 
 import type { Task } from "@/types/task";
 import { CreateTaskModal } from "./_components/CreateTaskModal/CreateTaskModal";
+import { DeleteTaskModal } from "./_components/DeleteTaskModal/DeleteTaskModal";
 import { SuccessSnackbar } from "./_components/SuccessSnackbar/SuccessSnackbar";
 import { TaskList } from "./_components/TaskList/TaskList";
 import { UpdateTaskModal } from "./_components/UpdateTaskModal/UpdateTaskModal";
@@ -25,11 +26,22 @@ export default function Tasks(): React.JSX.Element {
     close: closeUpdateModal,
   } = useModal();
 
+  const {
+    isOpen: isDeleteModalOpen,
+    open: openDeleteModal,
+    close: closeDeleteModal,
+  } = useModal();
+
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   function onUpdate(task: Task) {
     setSelectedTask(task);
     openUpdateModal();
+  }
+
+  function onDelete(task: Task) {
+    setSelectedTask(task);
+    openDeleteModal();
   }
 
   const [isSuccess, setIsSuccess] = useState(false);
@@ -55,6 +67,12 @@ export default function Tasks(): React.JSX.Element {
     closeUpdateModal();
   }
 
+  function onDeleteSuccess(task: TaskParams) {
+    handleSnackbarOpen();
+    setToastMessage(`タスク「${task.title}」を削除しました`);
+    closeDeleteModal();
+  }
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -68,7 +86,7 @@ export default function Tasks(): React.JSX.Element {
       <button type="button" onClick={openCreateModal}>
         タスク作成
       </button>
-      <TaskList tasks={tasks} onUpdate={onUpdate} />
+      <TaskList tasks={tasks} onUpdate={onUpdate} onDelete={onDelete} />
 
       <SuccessSnackbar
         isOpen={isSuccess}
@@ -86,6 +104,13 @@ export default function Tasks(): React.JSX.Element {
         isOpen={isUpdateModalOpen}
         onClose={closeUpdateModal}
         onSuccess={onUpdateSuccess}
+        task={selectedTask}
+      />
+
+      <DeleteTaskModal
+        isOpen={isDeleteModalOpen}
+        onClose={closeDeleteModal}
+        onSuccess={onDeleteSuccess}
         task={selectedTask}
       />
     </>
