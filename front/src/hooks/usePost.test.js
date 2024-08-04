@@ -87,7 +87,7 @@ describe("usePost", () => {
       const params = { input: "test" };
 
       beforeEach(() => {
-        setupNetworkError()
+        setupNetworkError();
       });
 
       it("ネットワークエラーを返すこと", async () => {

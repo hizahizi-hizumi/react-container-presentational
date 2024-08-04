@@ -98,7 +98,9 @@ describe("usePut", () => {
         const { trigger } = result.current;
 
         await waitFor(async () => {
-          await expect(trigger({ id, params })).rejects.toThrow("Failed to fetch");
+          await expect(trigger({ id, params })).rejects.toThrow(
+            "Failed to fetch",
+          );
         });
 
         expect(result.current).toEqual({
