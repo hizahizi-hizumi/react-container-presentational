@@ -1,3 +1,4 @@
+import { useDelete } from "@/hooks/useDelete";
 import { useGet } from "@/hooks/useGet";
 import { usePost } from "@/hooks/usePost";
 import { usePut } from "@/hooks/usePut";
@@ -22,6 +23,12 @@ interface UseTasksReturns {
       isUpdating: boolean;
       updatedTask: Task | undefined;
       updateError: Error | undefined;
+    };
+    delete: {
+      deleteTask: (id: number) => Promise<void>;
+      isDeleting: boolean;
+      deletedTask: Task | undefined;
+      deleteError: Error | undefined;
     };
   };
 }
@@ -60,6 +67,21 @@ export function useTasks(): UseTasksReturns {
     }
   }
 
+  const {
+    trigger: deleteTaskTrigger,
+    isMutating: isDeleting,
+    data: deletedTask,
+    error: deleteError,
+  } = useDelete<Task>(ENDPOINT);
+
+  async function deleteTask(id: number) {
+    if (id === undefined) {
+      throw new Error("ID is undefined");
+    }
+
+    await deleteTaskTrigger({ id });
+  }
+
   return {
     tasks,
     error,
@@ -67,6 +89,7 @@ export function useTasks(): UseTasksReturns {
     api: {
       create: { createTask, isCreating, createdTask, createError },
       update: { updateTask, isUpdating, updatedTask, updateError },
+      delete: { deleteTask, isDeleting, deletedTask, deleteError },
     },
   };
 }
