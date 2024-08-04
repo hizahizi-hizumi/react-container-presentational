@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 
 import type { Task } from "@/types/task";
-import { getTasks, deleteTask } from ".";
+import { deleteTask, getTasks } from ".";
 
 type DeleteTasksParams = {
   id: string;
@@ -37,7 +37,7 @@ export const delete_ = http.delete<
 
   deleteTask(Number(params.id));
 
-  const index = tasks.findIndex((t) => t.id ===  Number(params.id));
+  const index = tasks.findIndex((t) => t.id === Number(params.id));
   const task = tasks[index];
 
   return HttpResponse.json({ data: task, message: "" }, { status: 200 });

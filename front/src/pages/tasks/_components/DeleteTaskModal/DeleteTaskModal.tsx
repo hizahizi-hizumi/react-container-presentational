@@ -44,9 +44,7 @@ export function DeleteTaskModal(
       <DialogTitle>タスク作成</DialogTitle>
       <DialogContent>
         {deleteError && <p>{deleteError.message}</p>}
-        <DialogContentText>
-          {task?.title}を削除しますか？
-        </DialogContentText>
+        <DialogContentText>{task?.title}を削除しますか？</DialogContentText>
       </DialogContent>
       <DialogActions>
         <button type="button" onClick={onClose}>
