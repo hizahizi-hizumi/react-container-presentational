@@ -7,13 +7,18 @@ interface TaskListProps {
 }
 
 export function TaskList(props: TaskListProps): React.JSX.Element {
-  const { tasks, onUpdate,onDelete } = props;
+  const { tasks, onUpdate, onDelete } = props;
+
+  if (tasks.length === 0) {
+    return <p>タスクがありません</p>;
+  }
 
   return (
     <ul>
       {tasks.map((task) => (
         <li key={task.id}>
           {task.title}
+
           <button type="button" onClick={() => onUpdate(task)}>
             編集
           </button>
