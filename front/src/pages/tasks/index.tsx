@@ -1,9 +1,11 @@
 import { useState } from "react";
 import type React from "react";
 
+import type { Task } from "@/types/task";
 import { CreateTaskModal } from "./_components/CreateTaskModal/CreateTaskModal";
 import { SuccessSnackbar } from "./_components/SuccessSnackbar/SuccessSnackbar";
 import { TaskList } from "./_components/TaskList/TaskList";
+import { UpdateTaskModal } from "./_components/UpdateTaskModal/UpdateTaskModal";
 import { useModal } from "./hooks/useModal";
 import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
@@ -17,8 +19,21 @@ export default function Tasks(): React.JSX.Element {
     close: closeCreateModal,
   } = useModal();
 
+  const {
+    isOpen: isUpdateModalOpen,
+    open: openUpdateModal,
+    close: closeUpdateModal,
+  } = useModal();
+
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+
+  function onUpdate(task: Task) {
+    setSelectedTask(task);
+    openUpdateModal();
+  }
+
   const [isSuccess, setIsSuccess] = useState(false);
-  const [createdTask, setCreatedTask] = useState<TaskParams | null>(null);
+  const [toastMessage, setToastMessage] = useState("");
 
   function handleSnackbarOpen() {
     setIsSuccess(true);
@@ -30,8 +45,14 @@ export default function Tasks(): React.JSX.Element {
 
   function onCreateSuccess(task: TaskParams) {
     handleSnackbarOpen();
-    setCreatedTask(task);
+    setToastMessage(`タスク「${task.title}」を作成しました`);
     closeCreateModal();
+  }
+
+  function onUpdateSuccess(task: TaskParams) {
+    handleSnackbarOpen();
+    setToastMessage(`タスク「${task.title}」を更新しました`);
+    closeUpdateModal();
   }
 
   if (isLoading) {
@@ -47,18 +68,25 @@ export default function Tasks(): React.JSX.Element {
       <button type="button" onClick={openCreateModal}>
         タスク作成
       </button>
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} onUpdate={onUpdate} />
 
       <SuccessSnackbar
         isOpen={isSuccess}
         onClose={handleSnackbarClose}
-        message={`タスク「${createdTask?.title}」を作成しました`}
+        message={toastMessage}
       />
 
       <CreateTaskModal
         isOpen={isCreateModalOpen}
         onClose={closeCreateModal}
         onSuccess={onCreateSuccess}
+      />
+
+      <UpdateTaskModal
+        isOpen={isUpdateModalOpen}
+        onClose={closeUpdateModal}
+        onSuccess={onUpdateSuccess}
+        task={selectedTask}
       />
     </>
   );
