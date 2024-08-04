@@ -30,7 +30,7 @@ export function UpdateTaskModal(
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>タスク作成</DialogTitle>
+      <DialogTitle>タスク更新</DialogTitle>
       <DialogContent>
         <UpdateTaskForm formId={formId} task={task} onSuccess={onSuccess} />
       </DialogContent>
