@@ -14,8 +14,8 @@ interface UseTasksReturns {
     create: {
       createTask: (params: TaskParams) => Promise<void>;
       isCreating: boolean;
-      createdTask: Task | null;
-      createError: Error | null;
+      createdTask: Task | undefined;
+      createError: Error | undefined;
     };
     update: {
       updateTask: (id: number | undefined, params: TaskParams) => Promise<void>;
@@ -39,10 +39,10 @@ export function useTasks(): UseTasksReturns {
     isMutating: isCreating,
     data: createdTask,
     error: createError,
-  } = usePost<Task>(ENDPOINT);
+  } = usePost<TaskParams, Task>(ENDPOINT);
 
   async function createTask(params: TaskParams) {
-    await createTaskTrigger(params);
+    await createTaskTrigger({ params });
   }
 
   const {
