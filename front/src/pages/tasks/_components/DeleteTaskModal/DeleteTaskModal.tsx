@@ -33,9 +33,7 @@ export function DeleteTaskModal(
     try {
       await deleteTask(task.id);
       onSuccess({ title: task.title });
-    } catch (e) {
-      throw e;
-    }
+    } catch (e) {}
   }
 
   return (

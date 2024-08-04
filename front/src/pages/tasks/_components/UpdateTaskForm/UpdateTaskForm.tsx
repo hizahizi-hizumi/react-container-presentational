@@ -25,9 +25,7 @@ export function UpdateTaskForm(props: UpdateTaskFormProps): React.JSX.Element {
     try {
       await updateTask(task.id, taskParams);
       onSuccess(taskParams);
-    } catch (e) {
-      throw e;
-    }
+    } catch (e) {}
   }
 
   return (

@@ -19,9 +19,7 @@ export function CreateTaskForm(props: CreateTaskFormProps): React.JSX.Element {
     try {
       await createTask(task);
       onSuccess(task);
-    } catch (e) {
-      throw e;
-    }
+    } catch (e) {}
   }
 
   return (
