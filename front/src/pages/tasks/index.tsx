@@ -10,14 +10,14 @@ import type { TaskParams } from "./types/taskParams";
 export default function Tasks(): React.JSX.Element {
   const { tasks, error, isLoading } = useTasks();
 
-  const [open, setOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
-  function handleModalOpen() {
-    setOpen(true);
+  function handleCreateModalOpen() {
+    setIsCreateModalOpen(true);
   }
 
-  function handleModalClose() {
-    setOpen(false);
+  function handleCreateModalClose() {
+    setIsCreateModalOpen(false);
   }
 
   const [isSuccess, setIsSuccess] = useState(false);
@@ -34,7 +34,7 @@ export default function Tasks(): React.JSX.Element {
   function onSuccess(task: TaskParams) {
     handleSnackbarOpen();
     setCreatedTask(task);
-    handleModalClose();
+    handleCreateModalClose();
   }
 
   if (isLoading) {
@@ -47,7 +47,7 @@ export default function Tasks(): React.JSX.Element {
   return (
     <>
       <h1>Tasks</h1>
-      <button type="button" onClick={handleModalOpen}>
+      <button type="button" onClick={handleCreateModalOpen}>
         タスク作成
       </button>
       <TaskList tasks={tasks} />
@@ -59,8 +59,8 @@ export default function Tasks(): React.JSX.Element {
       />
 
       <CreateTaskModal
-        isOpen={open}
-        onClose={handleModalClose}
+        isOpen={isCreateModalOpen}
+        onClose={handleCreateModalClose}
         onSuccess={onSuccess}
       />
     </>
