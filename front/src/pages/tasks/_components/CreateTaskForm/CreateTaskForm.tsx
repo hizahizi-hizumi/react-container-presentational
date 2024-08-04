@@ -21,7 +21,7 @@ export function CreateTaskForm(props: CreateTaskFormProps): React.JSX.Element {
       await createTask(task);
       onSuccess(task);
     } catch (e) {
-      // onSuccess が呼ばれないように必要
+      throw e;
     }
   }
 

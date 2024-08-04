@@ -19,7 +19,7 @@ interface UseTasksReturns {
       createError: Error | undefined;
     };
     update: {
-      updateTask: (id: number | undefined, params: TaskParams) => Promise<void>;
+      updateTask: (id: number, params: TaskParams) => Promise<void>;
       isUpdating: boolean;
       updatedTask: Task | undefined;
       updateError: Error | undefined;
@@ -59,11 +59,7 @@ export function useTasks(): UseTasksReturns {
     error: updateError,
   } = usePut<TaskParams, Task>(ENDPOINT);
 
-  async function updateTask(id: number | undefined, params: TaskParams) {
-    if (id === undefined) {
-      throw new Error("ID is undefined");
-    }
-
+  async function updateTask(id: number, params: TaskParams) {
     await updateTaskTrigger({ id, params });
   }
 
@@ -75,10 +71,6 @@ export function useTasks(): UseTasksReturns {
   } = useDelete<Task>(ENDPOINT);
 
   async function deleteTask(id: number) {
-    if (id === undefined) {
-      throw new Error("ID is undefined");
-    }
-
     await deleteTaskTrigger({ id });
   }
 

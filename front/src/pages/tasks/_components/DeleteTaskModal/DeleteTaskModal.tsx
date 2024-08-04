@@ -28,14 +28,14 @@ export function DeleteTaskModal(
 
   async function onDelete() {
     if (!task) {
-      return;
+      throw new Error("Task is not found");
     }
 
     try {
       await deleteTask(task.id);
       onSuccess({ title: task.title });
     } catch (e) {
-      // onSuccess が呼ばれないように必要
+      throw e;
     }
   }
 

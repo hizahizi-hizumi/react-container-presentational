@@ -19,11 +19,15 @@ export function UpdateTaskForm(props: UpdateTaskFormProps): React.JSX.Element {
   const { updateTask, updateError } = api.update;
 
   async function onSubmit(taskParams: TaskParams) {
+    if (!task) {
+      throw new Error("Task is not found");
+    }
+
     try {
-      await updateTask(task?.id, taskParams);
+      await updateTask(task.id, taskParams);
       onSuccess(taskParams);
     } catch (e) {
-      // onSuccess が呼ばれないように必要
+      throw e;
     }
   }
 
