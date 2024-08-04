@@ -39,7 +39,7 @@ export function UpdateTaskModal(
           キャンセル
         </button>
         <button type="submit" disabled={!canSubmit} form={formId}>
-          作成
+          更新
         </button>
       </DialogActions>
     </Dialog>
