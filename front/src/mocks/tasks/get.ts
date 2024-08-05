@@ -7,7 +7,8 @@ type GetTasksParams = Record<string, never>;
 type GetTasksRequestBody = Record<string, never>;
 
 type GetTasksResponseBody = {
-  tasks: Task[];
+  data: Task[];
+  message: string;
 };
 
 export const get = http.get<
@@ -17,6 +18,7 @@ export const get = http.get<
   "/tasks"
 >("/tasks", () => {
   return HttpResponse.json({
-    tasks: getTasks(),
+    data: getTasks(),
+    message: "",
   });
 });

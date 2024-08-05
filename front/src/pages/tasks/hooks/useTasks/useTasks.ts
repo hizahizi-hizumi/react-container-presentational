@@ -9,12 +9,8 @@ interface UseTasksReturns {
 }
 
 export function useTasks(): UseTasksReturns {
-  interface GetTasksResponseBody {
-    tasks: Task[];
-  }
-
-  const { data, error, isLoading } = useGet<GetTasksResponseBody>(ENDPOINT);
-  const tasks = data?.tasks ?? [];
+  const { data, error, isLoading } = useGet<Task[]>(ENDPOINT);
+  const tasks = data ?? [];
 
   return {
     tasks,

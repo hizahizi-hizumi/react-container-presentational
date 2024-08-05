@@ -35,7 +35,7 @@ describe("useTasks", () => {
     const tasks = [{ id: 1, title: "Test Task" }];
 
     beforeEach(() => {
-      setupResponse({ tasks }, "", 200);
+      setupResponse(tasks, "", 200);
     });
 
     it("タスクの取得が成功すること", async () => {
