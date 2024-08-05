@@ -1,0 +1,26 @@
+import { usePut } from "@/hooks/usePut";
+import type { TaskParams } from "@/pages/tasks/types/taskParams";
+import type { Task } from "@/types/task";
+import { ENDPOINT } from "./ENDPOINT";
+
+interface UseUpdateTaskReturns {
+  updateTask: (id: number, params: TaskParams) => Promise<void>;
+  isUpdating: boolean;
+  updatedTask: Task | undefined;
+  updateError: Error | undefined;
+}
+
+export function useUpdateTask(): UseUpdateTaskReturns {
+  const {
+    trigger: updateTaskTrigger,
+    isMutating: isUpdating,
+    data: updatedTask,
+    error: updateError,
+  } = usePut<TaskParams, Task>(ENDPOINT);
+
+  async function updateTask(id: number, params: TaskParams) {
+    await updateTaskTrigger({ id, params });
+  }
+
+  return { updateTask, isUpdating, updatedTask, updateError };
+}
