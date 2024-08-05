@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import type { TaskParams } from "@/pages/tasks/types/taskParams";
-import { useTaskAPI } from "../../hooks/useTasks";
+import { useCreateTask } from "../../hooks/useTasks";
 
 interface CreateTaskFormProps {
   formId: string;
@@ -13,7 +13,7 @@ export function CreateTaskForm(props: CreateTaskFormProps): React.JSX.Element {
 
   const { register, handleSubmit } = useForm<TaskParams>();
 
-  const { createTask, createError } = useTaskAPI().create;
+  const { createTask, createError } = useCreateTask();
 
   async function onSubmit(task: TaskParams) {
     try {

@@ -5,7 +5,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-import { useTaskAPI } from "../../hooks/useTasks";
+import { useCreateTask } from "../../hooks/useTasks";
 import type { TaskParams } from "../../types/taskParams";
 import { CreateTaskForm } from "../CreateTaskForm/CreateTaskForm";
 
@@ -22,7 +22,7 @@ export function CreateTaskModal(
 
   const formId = "create-task-form";
 
-  const { isCreating } = useTaskAPI().create;
+  const { isCreating } = useCreateTask();
   const canSubmit = !isCreating;
 
   return (
