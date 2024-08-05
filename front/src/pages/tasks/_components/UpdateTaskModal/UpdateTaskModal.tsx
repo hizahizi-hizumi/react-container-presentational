@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 
 import type { Task } from "@/types/task";
-import { useTaskAPI } from "../../hooks/useTasks";
+import { useUpdateTask } from "../../hooks/useTasks";
 import type { TaskParams } from "../../types/taskParams";
 import { UpdateTaskForm } from "../UpdateTaskForm/UpdateTaskForm";
 
@@ -24,7 +24,7 @@ export function UpdateTaskModal(
 
   const formId = "update-task-form";
 
-  const { isUpdating } = useTaskAPI().update;
+  const { isUpdating } = useUpdateTask();
   const canSubmit = !isUpdating;
 
   return (

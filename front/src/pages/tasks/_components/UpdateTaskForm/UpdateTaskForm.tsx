@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 
 import type { TaskParams } from "@/pages/tasks/types/taskParams";
 import type { Task } from "@/types/task";
-import { useTaskAPI } from "../../hooks/useTasks";
+import { useUpdateTask } from "../../hooks/useTasks";
 
 interface UpdateTaskFormProps {
   formId: string;
@@ -15,7 +15,7 @@ export function UpdateTaskForm(props: UpdateTaskFormProps): React.JSX.Element {
 
   const { register, handleSubmit } = useForm<TaskParams>();
 
-  const { updateTask, updateError } = useTaskAPI().update;
+  const { updateTask, updateError } = useUpdateTask();
 
   async function onSubmit(taskParams: TaskParams) {
     if (!task) {
