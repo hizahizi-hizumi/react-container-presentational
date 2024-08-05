@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 
 import type { Task } from "@/types/task";
-import { useTaskAPI } from "../../hooks/useTasks";
+import { useDeleteTask } from "../../hooks/useTasks";
 import type { TaskParams } from "../../types/taskParams";
 
 interface DeleteTaskModalProps {
@@ -22,7 +22,7 @@ export function DeleteTaskModal(
 ): React.JSX.Element {
   const { isOpen, onClose, onSuccess, task } = props;
 
-  const { deleteTask, isDeleting, deleteError } = useTaskAPI().delete;
+  const { deleteTask, isDeleting, deleteError } = useDeleteTask();
   const canSubmit = !isDeleting;
 
   async function onDelete() {
