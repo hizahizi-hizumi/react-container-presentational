@@ -8,6 +8,7 @@ import { SuccessSnackbar } from "./_components/SuccessSnackbar/SuccessSnackbar";
 import { TaskList } from "./_components/TaskList/TaskList";
 import { UpdateTaskModal } from "./_components/UpdateTaskModal/UpdateTaskModal";
 import { useModal } from "./hooks/useModal";
+import { useSnackbar } from "./hooks/useSnackbar";
 import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
 
@@ -44,32 +45,25 @@ export default function Tasks(): React.JSX.Element {
     openDeleteModal();
   }
 
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-
-  function handleSnackbarOpen() {
-    setIsSuccess(true);
-  }
-
-  function handleSnackbarClose() {
-    setIsSuccess(false);
-  }
+  const {
+    isOpen: isOpenSnackbar,
+    open: openSnackbar,
+    close: closeSnackbar,
+    message,
+  } = useSnackbar();
 
   function onCreateSuccess(task: TaskParams) {
-    handleSnackbarOpen();
-    setToastMessage(`タスク「${task.title}」を作成しました`);
+    openSnackbar(`タスク「${task.title}」を作成しました`);
     closeCreateModal();
   }
 
   function onUpdateSuccess(task: TaskParams) {
-    handleSnackbarOpen();
-    setToastMessage(`タスク「${task.title}」を更新しました`);
+    openSnackbar(`タスク「${task.title}」を更新しました`);
     closeUpdateModal();
   }
 
   function onDeleteSuccess(task: TaskParams) {
-    handleSnackbarOpen();
-    setToastMessage(`タスク「${task.title}」を削除しました`);
+    openSnackbar(`タスク「${task.title}」を削除しました`);
     closeDeleteModal();
   }
 
@@ -89,9 +83,9 @@ export default function Tasks(): React.JSX.Element {
       <TaskList tasks={tasks} onUpdate={onUpdate} onDelete={onDelete} />
 
       <SuccessSnackbar
-        isOpen={isSuccess}
-        onClose={handleSnackbarClose}
-        message={toastMessage}
+        isOpen={isOpenSnackbar}
+        onClose={closeSnackbar}
+        message={message}
       />
 
       <CreateTaskModal
