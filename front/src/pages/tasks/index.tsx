@@ -1,14 +1,12 @@
-import { useState } from "react";
 import type React from "react";
 
-import type { Task } from "@/types/task";
 import { CreateTaskModal } from "./_components/CreateTaskModal/CreateTaskModal";
 import { DeleteTaskModal } from "./_components/DeleteTaskModal/DeleteTaskModal";
 import { SuccessSnackbar } from "./_components/SuccessSnackbar/SuccessSnackbar";
 import { TaskList } from "./_components/TaskList/TaskList";
 import { UpdateTaskModal } from "./_components/UpdateTaskModal/UpdateTaskModal";
-import { useModal } from "./hooks/useModal";
 import { useSnackbar } from "./hooks/useSnackbar";
+import { useTaskModals } from "./hooks/useTaskModals";
 import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
 
@@ -16,34 +14,13 @@ export default function Tasks(): React.JSX.Element {
   const { tasks, error, isLoading } = useTasks();
 
   const {
-    isOpen: isCreateModalOpen,
-    open: openCreateModal,
-    close: closeCreateModal,
-  } = useModal();
-
-  const {
-    isOpen: isUpdateModalOpen,
-    open: openUpdateModal,
-    close: closeUpdateModal,
-  } = useModal();
-
-  const {
-    isOpen: isDeleteModalOpen,
-    open: openDeleteModal,
-    close: closeDeleteModal,
-  } = useModal();
-
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-
-  function onUpdate(task: Task) {
-    setSelectedTask(task);
-    openUpdateModal();
-  }
-
-  function onDelete(task: Task) {
-    setSelectedTask(task);
-    openDeleteModal();
-  }
+    create,
+    update,
+    delete: delete_,
+    selectedTask,
+    onUpdate,
+    onDelete,
+  } = useTaskModals();
 
   const {
     isOpen: isOpenSnackbar,
@@ -54,17 +31,17 @@ export default function Tasks(): React.JSX.Element {
 
   function onCreateSuccess(task: TaskParams) {
     openSnackbar(`タスク「${task.title}」を作成しました`);
-    closeCreateModal();
+    create.close();
   }
 
   function onUpdateSuccess(task: TaskParams) {
     openSnackbar(`タスク「${task.title}」を更新しました`);
-    closeUpdateModal();
+    update.close();
   }
 
   function onDeleteSuccess(task: TaskParams) {
     openSnackbar(`タスク「${task.title}」を削除しました`);
-    closeDeleteModal();
+    delete_.close();
   }
 
   if (isLoading) {
@@ -77,7 +54,7 @@ export default function Tasks(): React.JSX.Element {
   return (
     <>
       <h1>Tasks</h1>
-      <button type="button" onClick={openCreateModal}>
+      <button type="button" onClick={create.open}>
         タスク作成
       </button>
       <TaskList tasks={tasks} onUpdate={onUpdate} onDelete={onDelete} />
@@ -89,21 +66,21 @@ export default function Tasks(): React.JSX.Element {
       />
 
       <CreateTaskModal
-        isOpen={isCreateModalOpen}
-        onClose={closeCreateModal}
+        isOpen={create.isOpen}
+        onClose={create.close}
         onSuccess={onCreateSuccess}
       />
 
       <UpdateTaskModal
-        isOpen={isUpdateModalOpen}
-        onClose={closeUpdateModal}
+        isOpen={update.isOpen}
+        onClose={update.close}
         onSuccess={onUpdateSuccess}
         task={selectedTask}
       />
 
       <DeleteTaskModal
-        isOpen={isDeleteModalOpen}
-        onClose={closeDeleteModal}
+        isOpen={delete_.isOpen}
+        onClose={delete_.close}
         onSuccess={onDeleteSuccess}
         task={selectedTask}
       />
