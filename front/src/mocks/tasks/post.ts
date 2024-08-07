@@ -23,7 +23,9 @@ export const post = http.post<
   // return HttpResponse.error();
   const req = await request.json();
 
-  const taskTitles = getTasks().map((task) => task.title);
+  const existedTasks = getTasks();
+
+  const taskTitles = existedTasks.map((task) => task.title);
   const isParamsValid = taskTitles.includes(req.title);
 
   if (isParamsValid) {
@@ -36,10 +38,16 @@ export const post = http.post<
     );
   }
 
-  const sortedTasks = [...getTasks()].sort((a, b) => b.id - a.id);
+  let sortedTasks: Task[] = [];
+  let id = 1;
+
+  if (existedTasks.length > 0) {
+    sortedTasks = [...existedTasks].sort((a, b) => b.id - a.id);
+    id = sortedTasks[0].id + 1;
+  }
 
   const task = {
-    id: sortedTasks[0].id + 1,
+    id: id,
     title: req.title,
   };
 
