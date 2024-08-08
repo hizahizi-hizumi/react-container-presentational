@@ -1,4 +1,6 @@
 import {
+  Button,
+  ButtonGroup,
   Dialog,
   DialogActions,
   DialogContent,
@@ -44,12 +46,20 @@ export function CreateTaskModal(
           <CreateTaskFormContent register={register} />
         </DialogContent>
         <DialogActions>
-          <button type="button" onClick={onClose}>
-            キャンセル
-          </button>
-          <button type="submit" disabled={!canSubmit}>
-            作成
-          </button>
+          <ButtonGroup>
+            <Button type="button" color="inherit" onClick={onClose}>
+              キャンセル
+            </Button>
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              disableElevation
+              disabled={!canSubmit}
+            >
+              作成
+            </Button>
+          </ButtonGroup>
         </DialogActions>
       </form>
     </Dialog>
