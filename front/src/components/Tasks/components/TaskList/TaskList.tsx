@@ -1,5 +1,13 @@
 import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
-import { ButtonGroup, Button } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardActions,
+  CardHeader,
+  List,
+  ListItem,
+} from "@mui/material";
 
 import type { Task } from "@/types/task";
 
@@ -17,21 +25,24 @@ export function TaskList(props: TaskListProps): React.JSX.Element {
   }
 
   return (
-    <ul>
+    <List>
       {tasks.map((task) => (
-        <li key={task.id}>
-          {task.title}
-
-          <ButtonGroup>
-            <Button color="inherit" onClick={() => onUpdate(task)}>
-              <EditIcon />
-            </Button>
-            <Button color="error" onClick={() => onDelete(task)}>
-              <DeleteIcon />
-            </Button>
-          </ButtonGroup>
-        </li>
+        <ListItem key={task.id}>
+          <Card>
+            <CardHeader title={task.title} />
+            <CardActions>
+              <ButtonGroup>
+                <Button color="inherit" onClick={() => onUpdate(task)}>
+                  <EditIcon />
+                </Button>
+                <Button color="error" onClick={() => onDelete(task)}>
+                  <DeleteIcon />
+                </Button>
+              </ButtonGroup>
+            </CardActions>
+          </Card>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 }
