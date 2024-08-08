@@ -1,5 +1,5 @@
+import type { TaskParams } from "@/components/Tasks/types/taskParams";
 import { usePost } from "@/hooks/usePost";
-import type { TaskParams } from "@/pages/tasks/types/taskParams";
 import type { Task } from "@/types/task";
 import { ENDPOINT } from "./ENDPOINT";
 
