@@ -29,14 +29,14 @@ async function fetcher<T, U>(
   return result.data;
 }
 
-interface UsePostParams<T, U> {
+interface UsePostReturns<T, U> {
   trigger: (arg: FetcherArg<T>) => Promise<U>;
   isMutating: boolean;
   data: U | undefined;
   error: Error | undefined;
 }
 
-export function usePost<T, U>(url: string): UsePostParams<T, U> {
+export function usePost<T, U>(url: string): UsePostReturns<T, U> {
   const { trigger, isMutating, data, error } = useSWRMutation<
     U,
     Error,

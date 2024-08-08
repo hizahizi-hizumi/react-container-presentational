@@ -25,13 +25,13 @@ async function fetcher<T>(params: FetcherParams): Promise<T> {
   return result.data;
 }
 
-interface UseGetParams<T> {
+interface UseGetReturns<T> {
   data: T | undefined;
   error: Error | undefined;
   isLoading: boolean;
 }
 
-export function useGet<T>(url: string, query?: Query): UseGetParams<T> {
+export function useGet<T>(url: string, query?: Query): UseGetReturns<T> {
   const { data, error, isLoading } = useSWR<T, Error, FetcherParams>(
     { url, query },
     fetcher,

@@ -29,14 +29,14 @@ async function fetcher<U>(
   return result.data;
 }
 
-interface UseDeleteParams<U> {
+interface UseDeleteReturns<U> {
   trigger: (arg: FetcherArg) => Promise<U>;
   isMutating: boolean;
   data: U | undefined;
   error: Error | undefined;
 }
 
-export function useDelete<U>(url: string): UseDeleteParams<U> {
+export function useDelete<U>(url: string): UseDeleteReturns<U> {
   const { trigger, isMutating, data, error } = useSWRMutation<
     U,
     Error,
