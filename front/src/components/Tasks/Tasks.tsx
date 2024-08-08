@@ -1,5 +1,8 @@
 import type React from "react";
 
+import { Add as AddIcon } from "@mui/icons-material";
+import { Button } from "@mui/material";
+
 import { CreateTaskModal } from "./components/CreateTaskModal/CreateTaskModal";
 import { DeleteTaskModal } from "./components/DeleteTaskModal/DeleteTaskModal";
 import { SuccessSnackbar } from "./components/SuccessSnackbar/SuccessSnackbar";
@@ -54,9 +57,14 @@ export function Tasks(): React.JSX.Element {
   return (
     <>
       <h1>Tasks</h1>
-      <button type="button" onClick={create.open}>
-        タスク作成
-      </button>
+      <Button
+        color="primary"
+        variant="contained"
+        disableElevation
+        onClick={create.open}
+      >
+        <AddIcon />
+      </Button>
       <TaskList tasks={tasks} onUpdate={onUpdate} onDelete={onDelete} />
 
       <SuccessSnackbar
