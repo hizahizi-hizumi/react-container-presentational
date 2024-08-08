@@ -4,7 +4,7 @@ import { ENDPOINT } from "./ENDPOINT";
 
 interface UseTasksReturns {
   tasks: Task[];
-  error: Error | null;
+  error: Error | undefined;
   isLoading: boolean;
 }
 

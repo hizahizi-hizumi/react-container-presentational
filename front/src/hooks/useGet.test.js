@@ -9,7 +9,7 @@ const server = setupServer();
 beforeAll(() => server.listen());
 afterEach(() => {
   server.resetHandlers();
-  mutate("/get", undefined, true); // useSWR のキャッシュをクリア
+  mutate({ url: "/get" }, undefined, true); // useSWR のキャッシュをクリア
 });
 afterAll(() => server.close());
 
@@ -51,6 +51,33 @@ describe("useGet", () => {
           data: data,
           error: undefined,
           isLoading: false,
+        });
+      });
+    });
+
+    describe("クエリパラメータを指定したとき", () => {
+      const data = "value";
+      const query = { param: "test" };
+
+      beforeEach(() => {
+        setupResponse(data, "", 200);
+      });
+
+      it("データ取得が成功すること", async () => {
+        const { result } = renderHook(() => useGet("/get", query));
+
+        expect(result.current).toEqual({
+          data: undefined,
+          error: undefined,
+          isLoading: true,
+        });
+
+        await waitFor(() => {
+          expect(result.current).toEqual({
+            data: data,
+            error: undefined,
+            isLoading: false,
+          });
         });
       });
     });

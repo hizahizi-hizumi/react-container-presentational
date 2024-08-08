@@ -2,8 +2,20 @@ import useSWR from "swr";
 
 import type { ApiResponse } from "@/types/apiResponse";
 
-async function fetcher<T>(url: string): Promise<T> {
-  const response = await fetch(url);
+type Query = Record<string, string>;
+
+interface FetcherParams {
+  url: string;
+  query?: Query;
+}
+
+async function fetcher<T>(params: FetcherParams): Promise<T> {
+  const { url, query } = params;
+
+  const queryString = new URLSearchParams(query).toString();
+  const urlWithQueryString = queryString ? `${url}?${queryString}` : url;
+
+  const response = await fetch(urlWithQueryString);
   const result: ApiResponse<T> = await response.json();
 
   if (!response.ok) {
@@ -15,12 +27,15 @@ async function fetcher<T>(url: string): Promise<T> {
 
 interface UseGetParams<T> {
   data: T | undefined;
-  error: Error | null;
+  error: Error | undefined;
   isLoading: boolean;
 }
 
-export function useGet<T>(url: string): UseGetParams<T> {
-  const { data, error, isLoading } = useSWR<T>(url, fetcher);
+export function useGet<T>(url: string, query?: Query): UseGetParams<T> {
+  const { data, error, isLoading } = useSWR<T, Error, FetcherParams>(
+    { url, query },
+    fetcher,
+  );
 
   return { data, error, isLoading };
 }
