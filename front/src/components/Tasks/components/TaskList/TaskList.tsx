@@ -1,3 +1,6 @@
+import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
+import { ButtonGroup, Button } from "@mui/material";
+
 import type { Task } from "@/types/task";
 
 interface TaskListProps {
@@ -19,12 +22,14 @@ export function TaskList(props: TaskListProps): React.JSX.Element {
         <li key={task.id}>
           {task.title}
 
-          <button type="button" onClick={() => onUpdate(task)}>
-            編集
-          </button>
-          <button type="button" onClick={() => onDelete(task)}>
-            削除
-          </button>
+          <ButtonGroup>
+            <Button color="inherit" onClick={() => onUpdate(task)}>
+              <EditIcon />
+            </Button>
+            <Button color="error" onClick={() => onDelete(task)}>
+              <DeleteIcon />
+            </Button>
+          </ButtonGroup>
         </li>
       ))}
     </ul>

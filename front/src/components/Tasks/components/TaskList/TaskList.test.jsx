@@ -47,7 +47,7 @@ describe("TaskList", () => {
           onDelete={mockOnDelete}
         />,
       );
-      fireEvent.click(screen.getAllByText("編集")[0]);
+      fireEvent.click(screen.getAllByTestId("EditIcon")[0].closest("button"));
       expect(mockOnUpdate).toHaveBeenCalledWith(tasks[0]);
     });
   });
@@ -61,7 +61,7 @@ describe("TaskList", () => {
           onDelete={mockOnDelete}
         />,
       );
-      fireEvent.click(screen.getAllByText("削除")[0]);
+      fireEvent.click(screen.getAllByTestId("DeleteIcon")[0].closest("button"));
       expect(mockOnDelete).toHaveBeenCalledWith(tasks[0]);
     });
   });
