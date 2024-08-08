@@ -5,6 +5,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  useTheme,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 
@@ -22,6 +23,7 @@ export function CreateTaskModal(
   props: CreateTaskModalProps,
 ): React.JSX.Element {
   const { isOpen, onClose, onSuccess } = props;
+  const theme = useTheme();
 
   const { createTask, createError } = useCreateTask();
 
@@ -38,10 +40,10 @@ export function CreateTaskModal(
   const canSubmit = !isCreating;
 
   return (
-    <Dialog open={isOpen} onClose={onClose}>
+    <Dialog open={isOpen} onClose={onClose} fullWidth>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>タスク作成</DialogTitle>
-        <DialogContent>
+        <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
           {createError && <p>{createError.message}</p>}
           <CreateTaskFormContent register={register} />
         </DialogContent>
