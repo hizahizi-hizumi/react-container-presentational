@@ -27,7 +27,7 @@ export function useGet<T>(url: string, query?: Query): UseGetReturns<T> {
 
   const { data, error, isLoading } = useSWR<T, Error, string>(
     urlWithQueryString,
-    fetcher
+    fetcher,
   );
 
   return { data, error, isLoading };
