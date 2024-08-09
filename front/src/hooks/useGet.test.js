@@ -9,7 +9,7 @@ const server = setupServer();
 beforeAll(() => server.listen());
 afterEach(() => {
   server.resetHandlers();
-  mutate({ url: "/get" }, undefined, true); // useSWR のキャッシュをクリア
+  mutate("/get", undefined, true); // useSWR のキャッシュをクリア
 });
 afterAll(() => server.close());
 

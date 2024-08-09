@@ -10,7 +10,7 @@ const server = setupServer();
 beforeAll(() => server.listen());
 afterEach(() => {
   server.resetHandlers();
-  mutate({ url: ENDPOINT }, undefined, true); // useSWR のキャッシュをリセット
+  mutate(ENDPOINT, undefined, true); // useSWR のキャッシュをリセット
 });
 afterAll(() => server.close());
 
