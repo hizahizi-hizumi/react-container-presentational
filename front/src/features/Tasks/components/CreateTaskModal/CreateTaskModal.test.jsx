@@ -1,3 +1,6 @@
+import { ThemeProvider } from "@mui/material";
+
+import { theme } from "@/theme";
 import { useCreateTask } from "../../hooks/useTasks";
 import { CreateTaskModal } from "./CreateTaskModal";
 
@@ -15,11 +18,13 @@ describe("CreateTaskModal", () => {
     });
 
     render(
-      <CreateTaskModal
-        isOpen={true}
-        onClose={mockOnClose}
-        onSuccess={mockOnSuccess}
-      />,
+      <ThemeProvider theme={theme}>
+        <CreateTaskModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+        />
+      </ThemeProvider>,
     );
   };
 
@@ -64,19 +69,7 @@ describe("CreateTaskModal", () => {
     const task = { title: "New Task" };
 
     beforeEach(() => {
-      useCreateTask.mockReturnValue({
-        createTask: vi.fn().mockResolvedValueOnce(task),
-        createError: null,
-        isCreating: false,
-      });
-
-      render(
-        <CreateTaskModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onSuccess={mockOnSuccess}
-        />,
-      );
+      renderModal();
     });
 
     it("onSuccess が呼び出されること", async () => {

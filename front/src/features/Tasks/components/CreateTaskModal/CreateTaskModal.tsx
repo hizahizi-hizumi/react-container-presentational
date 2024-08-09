@@ -49,7 +49,7 @@ export function CreateTaskModal(
         </DialogContent>
         <DialogActions>
           <ButtonGroup>
-            <Button type="button" color="inherit" onClick={onClose}>
+            <Button type="button" color="cancel" onClick={onClose}>
               キャンセル
             </Button>
             <Button
