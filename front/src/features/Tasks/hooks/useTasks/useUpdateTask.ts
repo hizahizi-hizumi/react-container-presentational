@@ -1,4 +1,4 @@
-import type { TaskParams } from "@/components/Tasks/types/taskParams";
+import type { TaskParams } from "@/features/Tasks/types/taskParams";
 import { usePut } from "@/hooks/usePut";
 import type { Task } from "@/types/task";
 import { ENDPOINT } from "./ENDPOINT";
