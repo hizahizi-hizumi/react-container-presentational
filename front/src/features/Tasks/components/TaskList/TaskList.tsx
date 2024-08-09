@@ -2,11 +2,10 @@ import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
 import {
   Button,
   ButtonGroup,
-  Card,
-  CardActions,
-  CardHeader,
+  Grid,
   List,
   ListItem,
+  Typography,
 } from "@mui/material";
 
 import type { Task } from "@/types/task";
@@ -27,20 +26,32 @@ export function TaskList(props: TaskListProps): React.JSX.Element {
   return (
     <List>
       {tasks.map((task) => (
-        <ListItem key={task.id}>
-          <Card>
-            <CardHeader title={task.title} />
-            <CardActions>
-              <ButtonGroup>
-                <Button color="inherit" onClick={() => onUpdate(task)}>
+        <ListItem key={task.id} divider>
+          <Grid container>
+            <Grid item xs={10} sx={{ display: "flex", alignItems: "center" }}>
+              <Typography>{task.title}</Typography>
+            </Grid>
+            <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
+              <ButtonGroup size="small">
+                <Button
+                  color="inherit"
+                  onClick={() => onUpdate(task)}
+                  variant="contained"
+                  disableElevation
+                >
                   <EditIcon />
                 </Button>
-                <Button color="error" onClick={() => onDelete(task)}>
+                <Button
+                  color="error"
+                  onClick={() => onDelete(task)}
+                  variant="contained"
+                  disableElevation
+                >
                   <DeleteIcon />
                 </Button>
               </ButtonGroup>
-            </CardActions>
-          </Card>
+            </Grid>
+          </Grid>
         </ListItem>
       ))}
     </List>
