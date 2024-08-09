@@ -10,6 +10,7 @@ import { useSnackbar } from "./hooks/useSnackbar";
 import { useTaskModals } from "./hooks/useTaskModals";
 import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
+import { Typography } from "@mui/material";
 
 export function Tasks(): React.JSX.Element {
   const { tasks, error, isLoading } = useTasks();
@@ -54,7 +55,7 @@ export function Tasks(): React.JSX.Element {
 
   return (
     <>
-      <h1>Tasks</h1>
+      <Typography variant="h4">Tasks</Typography>
       <CreateTaskButton onClick={create.open} />
 
       <TaskList tasks={tasks} onUpdate={onUpdate} onDelete={onDelete} />
