@@ -1,7 +1,7 @@
 import type { UseFormRegister } from "react-hook-form";
 
-import type { TaskParams } from "../../types/taskParams";
 import { TextField } from "@mui/material";
+import type { TaskParams } from "../../types/taskParams";
 
 interface CreateTaskFormContentProps {
   register: UseFormRegister<TaskParams>;
@@ -14,11 +14,7 @@ export function CreateTaskFormContent(
 
   return (
     <>
-      <TextField
-        label="Title"
-        variant="standard"
-        {...register("title")}
-      />
+      <TextField label="Title" variant="standard" {...register("title")} />
     </>
   );
 }
