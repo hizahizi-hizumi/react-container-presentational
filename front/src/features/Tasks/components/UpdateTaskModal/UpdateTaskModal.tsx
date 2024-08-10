@@ -1,8 +1,11 @@
 import {
+  Button,
+  ButtonGroup,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  useTheme,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 
@@ -23,6 +26,8 @@ export function UpdateTaskModal(
 ): React.JSX.Element {
   const { task, isOpen, onClose, onSuccess } = props;
 
+  const theme = useTheme();
+
   const { updateTask, updateError } = useUpdateTask();
 
   const { handleSubmit, register } = useForm<TaskParams>();
@@ -41,20 +46,28 @@ export function UpdateTaskModal(
   const canSubmit = !isUpdating;
 
   return (
-    <Dialog open={isOpen} onClose={onClose}>
+    <Dialog open={isOpen} onClose={onClose} fullWidth>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>タスク更新</DialogTitle>
-        <DialogContent>
+        <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
           {updateError && <p>{updateError.message}</p>}
           <UpdateTaskFormContent task={task} register={register} />
         </DialogContent>
         <DialogActions>
-          <button type="button" onClick={onClose}>
-            キャンセル
-          </button>
-          <button type="submit" disabled={!canSubmit}>
-            更新
-          </button>
+          <ButtonGroup>
+            <Button type="button" color="cancel" onClick={onClose}>
+              キャンセル
+            </Button>
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              disableElevation
+              disabled={!canSubmit}
+            >
+              更新
+            </Button>
+          </ButtonGroup>
         </DialogActions>
       </form>
     </Dialog>

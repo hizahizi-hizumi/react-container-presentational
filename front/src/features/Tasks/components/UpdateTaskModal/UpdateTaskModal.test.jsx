@@ -1,3 +1,6 @@
+import { ThemeProvider } from "@mui/material";
+
+import { theme } from "@/theme";
 import { useUpdateTask } from "../../hooks/useTasks";
 import { UpdateTaskModal } from "./UpdateTaskModal";
 
@@ -16,12 +19,14 @@ describe("UpdateTaskModal", () => {
     });
 
     render(
-      <UpdateTaskModal
-        task={task}
-        isOpen={true}
-        onClose={mockOnClose}
-        onSuccess={mockOnSuccess}
-      />,
+      <ThemeProvider theme={theme}>
+        <UpdateTaskModal
+          task={task}
+          isOpen={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+        />
+      </ThemeProvider>,
     );
   };
 
