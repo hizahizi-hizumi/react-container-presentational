@@ -93,12 +93,14 @@ describe("CreateTaskModal", () => {
     });
   });
 
-  describe("タスクの作成に成功したとき", () => {
+  describe("作成ボタンを押したとき", () => {
     const task = { title: "New Task" };
 
-    beforeEach(async () => {
+    beforeEach(() => {
       renderModal();
+    });
 
+    it("タスクの作成処理が呼び出されること", async () => {
       await waitFor(() => {
         fireEvent.change(screen.getByLabelText("タイトル"), {
           target: { value: task.title },
@@ -106,22 +108,32 @@ describe("CreateTaskModal", () => {
       });
 
       fireEvent.click(screen.getByText("作成"));
+
+      await waitFor(() =>
+        expect(useCreateTask().createTask).toHaveBeenCalledWith({
+          title: task.title,
+        }),
+      );
     });
 
-    it("onSuccess が呼び出されること", async () => {
-      await waitFor(() =>
-        expect(useCreateTask().createTask).toHaveBeenCalledWith(task),
-      );
+    describe("タスクの作成に成功したとき", () => {
+      beforeEach(async () => {
+        await waitFor(() => {
+          fireEvent.change(screen.getByLabelText("タイトル"), {
+            target: { value: task.title },
+          });
+        });
 
-      expect(mockOnSuccess).toHaveBeenCalledWith(task);
-    });
+        fireEvent.click(screen.getByText("作成"));
+      });
 
-    it("フォームがリセットされること", async () => {
-      await waitFor(() =>
-        expect(useCreateTask().createTask).toHaveBeenCalledWith(task),
-      );
+      it("onSuccess が呼び出されること", async () => {
+        expect(mockOnSuccess).toHaveBeenCalledWith(task);
+      });
 
-      expect(screen.getByLabelText("タイトル")).toHaveValue("");
+      it("フォームがリセットされること", async () => {
+        expect(screen.getByLabelText("タイトル")).toHaveValue("");
+      });
     });
   });
 
