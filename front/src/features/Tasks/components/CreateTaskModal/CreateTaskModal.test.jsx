@@ -96,11 +96,9 @@ describe("CreateTaskModal", () => {
   describe("タスクの作成に成功したとき", () => {
     const task = { title: "New Task" };
 
-    beforeEach(() => {
+    beforeEach(async () => {
       renderModal();
-    });
 
-    it("onSuccess が呼び出されること", async () => {
       await waitFor(() => {
         fireEvent.change(screen.getByLabelText("タイトル"), {
           target: { value: task.title },
@@ -108,12 +106,22 @@ describe("CreateTaskModal", () => {
       });
 
       fireEvent.click(screen.getByText("作成"));
+    });
 
+    it("onSuccess が呼び出されること", async () => {
       await waitFor(() =>
         expect(useCreateTask().createTask).toHaveBeenCalledWith(task),
       );
 
       expect(mockOnSuccess).toHaveBeenCalledWith(task);
+    });
+
+    it("フォームがリセットされること", async () => {
+      await waitFor(() =>
+        expect(useCreateTask().createTask).toHaveBeenCalledWith(task),
+      );
+
+      expect(screen.getByLabelText("タイトル")).toHaveValue("");
     });
   });
 

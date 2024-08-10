@@ -30,6 +30,7 @@ export function CreateTaskModal(
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors, isValid },
   } = useForm<TaskParams>();
 
@@ -37,6 +38,7 @@ export function CreateTaskModal(
     try {
       await createTask(task);
       onSuccess(task);
+      reset();
     } catch (e) {}
   }
 
