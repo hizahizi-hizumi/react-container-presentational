@@ -1,9 +1,12 @@
 import {
+  Button,
+  ButtonGroup,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  useTheme,
 } from "@mui/material";
 
 import type { Task } from "@/types/task";
@@ -22,6 +25,8 @@ export function DeleteTaskModal(
 ): React.JSX.Element {
   const { isOpen, onClose, onSuccess, task } = props;
 
+  const theme = useTheme();
+
   const { deleteTask, isDeleting, deleteError } = useDeleteTask();
   const canSubmit = !isDeleting;
 
@@ -37,19 +42,28 @@ export function DeleteTaskModal(
   }
 
   return (
-    <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>タスク作成</DialogTitle>
-      <DialogContent>
+    <Dialog open={isOpen} onClose={onClose} fullWidth>
+      <DialogTitle>タスク削除</DialogTitle>
+      <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
         {deleteError && <p>{deleteError.message}</p>}
         <DialogContentText>{task?.title}を削除しますか？</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <button type="button" onClick={onClose}>
-          キャンセル
-        </button>
-        <button type="submit" disabled={!canSubmit} onClick={onDelete}>
-          削除
-        </button>
+        <ButtonGroup>
+          <Button type="button" color="cancel" onClick={onClose}>
+            キャンセル
+          </Button>
+          <Button
+            type="submit"
+            color="error"
+            variant="contained"
+            disableElevation
+            disabled={!canSubmit}
+            onClick={onDelete}
+          >
+            削除
+          </Button>
+        </ButtonGroup>
       </DialogActions>
     </Dialog>
   );

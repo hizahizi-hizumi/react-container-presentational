@@ -1,3 +1,6 @@
+import { ThemeProvider } from "@mui/material";
+
+import { theme } from "@/theme";
 import { useDeleteTask } from "../../hooks/useTasks";
 import { DeleteTaskModal } from "./DeleteTaskModal";
 
@@ -16,12 +19,14 @@ describe("DeleteTaskModal", () => {
     });
 
     render(
-      <DeleteTaskModal
-        isOpen={true}
-        onClose={mockOnClose}
-        onSuccess={mockOnSuccess}
-        task={task}
-      />,
+      <ThemeProvider theme={theme}>
+        <DeleteTaskModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          task={task}
+        />
+      </ThemeProvider>,
     );
   };
 
@@ -35,7 +40,7 @@ describe("DeleteTaskModal", () => {
     });
 
     it("正しくレンダリングされること", () => {
-      expect(screen.getByText("タスク作成")).toBeInTheDocument();
+      expect(screen.getByText("タスク削除")).toBeInTheDocument();
       expect(screen.getByText("キャンセル")).toBeInTheDocument();
       expect(screen.getByText("削除")).toBeInTheDocument();
       expect(
@@ -69,20 +74,7 @@ describe("DeleteTaskModal", () => {
     const taskParams = { title: "Existing Task" };
 
     beforeEach(() => {
-      useDeleteTask.mockReturnValue({
-        deleteTask: vi.fn().mockResolvedValueOnce(taskParams),
-        isDeleting: false,
-        deleteError: null,
-      });
-
-      render(
-        <DeleteTaskModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onSuccess={mockOnSuccess}
-          task={task}
-        />,
-      );
+      renderModal();
     });
 
     it("onSuccess が呼び出されること", async () => {
