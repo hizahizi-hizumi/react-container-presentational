@@ -73,7 +73,7 @@ describe("CreateTaskModal", () => {
     });
 
     it("onSuccess が呼び出されること", async () => {
-      fireEvent.change(screen.getByLabelText("Title"), {
+      fireEvent.change(screen.getByLabelText("タイトル"), {
         target: { value: task.title },
       });
       fireEvent.click(screen.getByText("作成"));

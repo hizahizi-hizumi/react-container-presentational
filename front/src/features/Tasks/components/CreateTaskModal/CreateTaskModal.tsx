@@ -27,7 +27,11 @@ export function CreateTaskModal(
 
   const { createTask, createError } = useCreateTask();
 
-  const { handleSubmit, register } = useForm<TaskParams>();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<TaskParams>();
 
   async function onSubmit(task: TaskParams) {
     try {
@@ -45,7 +49,7 @@ export function CreateTaskModal(
         <DialogTitle>タスク作成</DialogTitle>
         <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
           {createError && <p>{createError.message}</p>}
-          <CreateTaskFormContent register={register} />
+          <CreateTaskFormContent register={register} errors={errors} />
         </DialogContent>
         <DialogActions>
           <ButtonGroup>
