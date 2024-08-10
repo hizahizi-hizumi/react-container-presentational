@@ -30,7 +30,7 @@ export function CreateTaskModal(
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<TaskParams>();
 
   async function onSubmit(task: TaskParams) {
@@ -41,7 +41,7 @@ export function CreateTaskModal(
   }
 
   const { isCreating } = useCreateTask();
-  const canSubmit = !isCreating;
+  const canSubmit = !isCreating && isValid;
 
   return (
     <Dialog open={isOpen} onClose={onClose} fullWidth>

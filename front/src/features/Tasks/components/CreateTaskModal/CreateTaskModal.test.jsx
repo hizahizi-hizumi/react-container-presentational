@@ -10,22 +10,24 @@ describe("CreateTaskModal", () => {
   const mockOnClose = vi.fn();
   const mockOnSuccess = vi.fn();
 
-  const renderModal = (isCreating = false, createError = null) => {
+  const renderModal = async (isCreating = false, createError = null) => {
     useCreateTask.mockReturnValue({
       createTask: vi.fn(),
       createError,
       isCreating,
     });
 
-    render(
-      <ThemeProvider theme={theme}>
-        <CreateTaskModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onSuccess={mockOnSuccess}
-        />
-      </ThemeProvider>,
-    );
+    await waitFor(() => {
+      render(
+        <ThemeProvider theme={theme}>
+          <CreateTaskModal
+            isOpen={true}
+            onClose={mockOnClose}
+            onSuccess={mockOnSuccess}
+          />
+        </ThemeProvider>,
+      );
+    });
   };
 
   beforeEach(() => {
@@ -65,6 +67,32 @@ describe("CreateTaskModal", () => {
     });
   });
 
+  describe("フォームが無効なとき", () => {
+    beforeEach(() => {
+      renderModal();
+    });
+
+    it("送信ボタンが無効になること", () => {
+      expect(screen.getByText("作成")).toBeDisabled();
+    });
+  });
+
+  describe("フォームが有効なとき", () => {
+    beforeEach(() => {
+      renderModal();
+    });
+
+    it("送信ボタンが有効になること", async () => {
+      await waitFor(() => {
+        fireEvent.change(screen.getByLabelText("タイトル"), {
+          target: { value: "New Task" },
+        });
+      });
+
+      expect(screen.getByText("作成")).not.toBeDisabled();
+    });
+  });
+
   describe("タスクの作成に成功したとき", () => {
     const task = { title: "New Task" };
 
@@ -73,14 +101,18 @@ describe("CreateTaskModal", () => {
     });
 
     it("onSuccess が呼び出されること", async () => {
-      fireEvent.change(screen.getByLabelText("タイトル"), {
-        target: { value: task.title },
+      await waitFor(() => {
+        fireEvent.change(screen.getByLabelText("タイトル"), {
+          target: { value: task.title },
+        });
       });
+
       fireEvent.click(screen.getByText("作成"));
 
       await waitFor(() =>
         expect(useCreateTask().createTask).toHaveBeenCalledWith(task),
       );
+
       expect(mockOnSuccess).toHaveBeenCalledWith(task);
     });
   });
