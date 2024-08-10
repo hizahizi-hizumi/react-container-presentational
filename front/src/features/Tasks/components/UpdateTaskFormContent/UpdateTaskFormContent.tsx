@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import type { UseFormRegister } from "react-hook-form";
 
 import type { Task } from "@/types/task";
@@ -15,10 +16,12 @@ export function UpdateTaskFormContent(
 
   return (
     <>
-      <label>
-        Title
-        <input defaultValue={task?.title} {...register("title")} />
-      </label>
+      <TextField
+        label="Title"
+        defaultValue={task?.title}
+        variant="standard"
+        {...register("title")}
+      />
     </>
   );
 }
