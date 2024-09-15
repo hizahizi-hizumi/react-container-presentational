@@ -3,6 +3,7 @@ import { http, HttpResponse } from "msw";
 import type { ApiResponse } from "@/types/apiResponse";
 import type { Task } from "@/types/task";
 import { addTask, getTasks } from ".";
+import { ENDPOINT } from "./ENDPOINT";
 
 type PostTasksParams = never;
 
@@ -14,8 +15,8 @@ export const post = http.post<
   PostTasksParams,
   PostTasksRequestBody,
   ApiResponse<Task | null>,
-  "/tasks"
->("/tasks", async ({ request }) => {
+  string
+>(ENDPOINT, async ({ request }) => {
   // return HttpResponse.error();
   const req = await request.json();
 
