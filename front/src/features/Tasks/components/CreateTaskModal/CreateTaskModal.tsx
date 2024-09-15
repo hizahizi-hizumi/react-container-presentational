@@ -24,7 +24,7 @@ export function CreateTaskModal(props: CreateTaskModalProps): JSX.Element {
   const { isOpen, onClose, onSuccess } = props;
   const theme = useTheme();
 
-  const { createTask, createError } = useCreateTask();
+  const { createTask, createTaskError } = useCreateTask();
 
   const {
     handleSubmit,
@@ -49,7 +49,7 @@ export function CreateTaskModal(props: CreateTaskModalProps): JSX.Element {
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>タスク作成</DialogTitle>
         <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
-          {createError && <p>{createError.message}</p>}
+          {createTaskError && <p>{createTaskError.message}</p>}
           <CreateTaskFormContent register={register} errors={errors} />
         </DialogContent>
         <DialogActions>

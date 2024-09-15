@@ -27,7 +27,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
 
   const theme = useTheme();
 
-  const { updateTask, updateError } = useUpdateTask();
+  const { updateTask, updateTaskError } = useUpdateTask();
 
   const { handleSubmit, register } = useForm<TaskParams>();
 
@@ -49,7 +49,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>タスク更新</DialogTitle>
         <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
-          {updateError && <p>{updateError.message}</p>}
+          {updateTaskError && <p>{updateTaskError.message}</p>}
           <UpdateTaskFormContent task={task} register={register} />
         </DialogContent>
         <DialogActions>

@@ -25,7 +25,7 @@ export function DeleteTaskModal(props: DeleteTaskModalProps): JSX.Element {
 
   const theme = useTheme();
 
-  const { deleteTask, isDeleting, deleteError } = useDeleteTask();
+  const { deleteTask, isDeleting, deleteTaskError } = useDeleteTask();
   const canSubmit = !isDeleting;
 
   async function onDelete() {
@@ -43,7 +43,7 @@ export function DeleteTaskModal(props: DeleteTaskModalProps): JSX.Element {
     <Dialog open={isOpen} onClose={onClose} fullWidth>
       <DialogTitle>タスク削除</DialogTitle>
       <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
-        {deleteError && <p>{deleteError.message}</p>}
+        {deleteTaskError && <p>{deleteTaskError.message}</p>}
         <DialogContentText>{task?.title}を削除しますか？</DialogContentText>
       </DialogContent>
       <DialogActions>

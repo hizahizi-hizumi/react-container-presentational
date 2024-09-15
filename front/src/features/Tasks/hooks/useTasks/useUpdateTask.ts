@@ -7,7 +7,7 @@ interface UseUpdateTaskReturns {
   updateTask: (id: number, params: TaskParams) => Promise<void>;
   isUpdating: boolean;
   updatedTask: Task | undefined;
-  updateError: Error | undefined;
+  updateTaskError: Error | undefined;
 }
 
 export function useUpdateTask(): UseUpdateTaskReturns {
@@ -15,12 +15,12 @@ export function useUpdateTask(): UseUpdateTaskReturns {
     put: putTask,
     isMutating: isUpdating,
     data: updatedTask,
-    error: updateError,
+    error: updateTaskError,
   } = usePut<TaskParams, Task>(ENDPOINT);
 
   async function updateTask(id: number, params: TaskParams) {
     await putTask({ id, params });
   }
 
-  return { updateTask, isUpdating, updatedTask, updateError };
+  return { updateTask, isUpdating, updatedTask, updateTaskError };
 }

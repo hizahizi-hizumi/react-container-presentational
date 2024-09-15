@@ -6,7 +6,7 @@ interface UseDeleteTaskReturns {
   deleteTask: (id: number) => Promise<void>;
   isDeleting: boolean;
   deletedTask: Task | undefined;
-  deleteError: Error | undefined;
+  deleteTaskError: Error | undefined;
 }
 
 export function useDeleteTask(): UseDeleteTaskReturns {
@@ -14,12 +14,12 @@ export function useDeleteTask(): UseDeleteTaskReturns {
     delete: deleteTask_,
     isMutating: isDeleting,
     data: deletedTask,
-    error: deleteError,
+    error: deleteTaskError,
   } = useDelete<Task>(ENDPOINT);
 
   async function deleteTask(id: number) {
     await deleteTask_({ id });
   }
 
-  return { deleteTask, isDeleting, deletedTask, deleteError };
+  return { deleteTask, isDeleting, deletedTask, deleteTaskError };
 }
