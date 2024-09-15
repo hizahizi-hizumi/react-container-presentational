@@ -10,7 +10,7 @@ import "@/reset.css";
 import "@/main.css";
 import { setupMsw } from "@/mocks/setupMsw";
 
-setupMsw();
+await setupMsw();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

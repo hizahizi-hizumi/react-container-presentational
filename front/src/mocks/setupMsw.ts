@@ -1,11 +1,11 @@
 import { setupWorker } from "msw/browser";
 import { handlers } from "./handlers";
 
-export function setupMsw() {
+export async function setupMsw() {
   if (!import.meta.env.DEV) {
     return;
   }
 
   const worker = setupWorker(...handlers);
-  worker.start();
+  await worker.start();
 }
