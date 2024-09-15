@@ -21,9 +21,7 @@ interface UpdateTaskModalProps {
   onSuccess: (params: TaskParams) => void;
 }
 
-export function UpdateTaskModal(
-  props: UpdateTaskModalProps,
-): React.JSX.Element {
+export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
   const { task, isOpen, onClose, onSuccess } = props;
 
   const theme = useTheme();

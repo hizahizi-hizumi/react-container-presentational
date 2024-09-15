@@ -1,5 +1,3 @@
-import type React from "react";
-
 import { Typography } from "@mui/material";
 
 import { useSnackbar } from "@/hooks/components/useSnackbar";
@@ -13,7 +11,7 @@ import { useTaskModals } from "./hooks/useTaskModals";
 import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
 
-export function Tasks(): React.JSX.Element {
+export function Tasks(): JSX.Element {
   const { tasks, error, isLoading } = useTasks();
 
   const {

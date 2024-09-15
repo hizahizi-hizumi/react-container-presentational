@@ -11,7 +11,7 @@ interface UpdateTaskFormContentProps {
 
 export function UpdateTaskFormContent(
   props: UpdateTaskFormContentProps,
-): React.JSX.Element {
+): JSX.Element {
   const { task, register } = props;
 
   return (

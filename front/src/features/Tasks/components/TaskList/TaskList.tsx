@@ -16,7 +16,7 @@ interface TaskListProps {
   onDeleteButtonClick: (task: Task) => void;
 }
 
-export function TaskList(props: TaskListProps): React.JSX.Element {
+export function TaskList(props: TaskListProps): JSX.Element {
   const { tasks, onEditButtonClick, onDeleteButtonClick } = props;
 
   if (tasks.length === 0) {

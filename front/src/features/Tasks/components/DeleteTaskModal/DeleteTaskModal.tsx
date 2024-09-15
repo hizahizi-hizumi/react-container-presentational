@@ -20,9 +20,7 @@ interface DeleteTaskModalProps {
   task: Task | null;
 }
 
-export function DeleteTaskModal(
-  props: DeleteTaskModalProps,
-): React.JSX.Element {
+export function DeleteTaskModal(props: DeleteTaskModalProps): JSX.Element {
   const { isOpen, onClose, onSuccess, task } = props;
 
   const theme = useTheme();

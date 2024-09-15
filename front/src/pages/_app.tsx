@@ -5,7 +5,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-export default function App() {
+export default function App(): JSX.Element {
   return (
     <>
       <main>

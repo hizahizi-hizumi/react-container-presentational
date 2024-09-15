@@ -19,9 +19,7 @@ interface CreateTaskModalProps {
   onSuccess: (params: TaskParams) => void;
 }
 
-export function CreateTaskModal(
-  props: CreateTaskModalProps,
-): React.JSX.Element {
+export function CreateTaskModal(props: CreateTaskModalProps): JSX.Element {
   const { isOpen, onClose, onSuccess } = props;
   const theme = useTheme();
 

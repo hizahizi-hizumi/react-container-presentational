@@ -10,7 +10,7 @@ interface CreateTaskFormContentProps {
 
 export function CreateTaskFormContent(
   props: CreateTaskFormContentProps,
-): React.JSX.Element {
+): JSX.Element {
   const { register, errors } = props;
 
   const titleValidation = {

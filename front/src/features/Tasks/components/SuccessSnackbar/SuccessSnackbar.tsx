@@ -6,9 +6,7 @@ interface SuccessSnackbarProps {
   message: string;
 }
 
-export function SuccessSnackbar(
-  props: SuccessSnackbarProps,
-): React.JSX.Element {
+export function SuccessSnackbar(props: SuccessSnackbarProps): JSX.Element {
   const { isOpen, onClose, message } = props;
 
   return (
