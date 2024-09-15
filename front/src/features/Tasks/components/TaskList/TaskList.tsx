@@ -12,12 +12,12 @@ import type { Task } from "@/types/task";
 
 interface TaskListProps {
   tasks: Task[];
-  onUpdate: (task: Task) => void;
-  onDelete: (task: Task) => void;
+  onEditButtonClick: (task: Task) => void;
+  onDeleteButtonClick: (task: Task) => void;
 }
 
 export function TaskList(props: TaskListProps): React.JSX.Element {
-  const { tasks, onUpdate, onDelete } = props;
+  const { tasks, onEditButtonClick, onDeleteButtonClick } = props;
 
   if (tasks.length === 0) {
     return <p>タスクがありません</p>;
@@ -35,7 +35,7 @@ export function TaskList(props: TaskListProps): React.JSX.Element {
               <ButtonGroup size="small">
                 <Button
                   color="inherit"
-                  onClick={() => onUpdate(task)}
+                  onClick={() => onEditButtonClick(task)}
                   variant="contained"
                   disableElevation
                 >
@@ -43,7 +43,7 @@ export function TaskList(props: TaskListProps): React.JSX.Element {
                 </Button>
                 <Button
                   color="error"
-                  onClick={() => onDelete(task)}
+                  onClick={() => onDeleteButtonClick(task)}
                   variant="contained"
                   disableElevation
                 >

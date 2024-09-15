@@ -19,8 +19,8 @@ interface useTaskModalsReturns {
     close: () => void;
   };
   selectedTask: Task | null;
-  onUpdate: (task: Task) => void;
-  onDelete: (task: Task) => void;
+  handleEditButtonClick: (task: Task) => void;
+  handleDeleteButtonClick: (task: Task) => void;
 }
 
 export function useTaskModals(): useTaskModalsReturns {
@@ -44,12 +44,12 @@ export function useTaskModals(): useTaskModalsReturns {
 
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
-  const onUpdate = (task: Task) => {
+  const handleEditButtonClick = (task: Task) => {
     setSelectedTask(task);
     openUpdateModal();
   };
 
-  const onDelete = (task: Task) => {
+  const handleDeleteButtonClick = (task: Task) => {
     setSelectedTask(task);
     openDeleteModal();
   };
@@ -71,7 +71,7 @@ export function useTaskModals(): useTaskModalsReturns {
       close: closeDeleteModal,
     },
     selectedTask,
-    onUpdate,
-    onDelete,
+    handleEditButtonClick,
+    handleDeleteButtonClick,
   };
 }

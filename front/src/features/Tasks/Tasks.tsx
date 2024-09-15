@@ -20,8 +20,8 @@ export function Tasks(): React.JSX.Element {
     update,
     delete: delete_,
     selectedTask,
-    onUpdate,
-    onDelete,
+    handleEditButtonClick,
+    handleDeleteButtonClick,
   } = useTaskModals();
 
   const {
@@ -58,7 +58,11 @@ export function Tasks(): React.JSX.Element {
       <Typography variant="h4">Tasks</Typography>
       <CreateTaskButton onClick={create.open} />
 
-      <TaskList tasks={tasks} onUpdate={onUpdate} onDelete={onDelete} />
+      <TaskList
+        tasks={tasks}
+        onEditButtonClick={handleEditButtonClick}
+        onDeleteButtonClick={handleDeleteButtonClick}
+      />
 
       <SuccessSnackbar
         isOpen={isOpenSnackbar}
