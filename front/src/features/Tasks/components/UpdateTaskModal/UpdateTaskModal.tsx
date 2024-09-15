@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   ButtonGroup,
@@ -48,7 +49,11 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>タスク更新</DialogTitle>
         <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
-          {updateTaskError && <p>{updateTaskError.message}</p>}
+          {updateTaskError && (
+            <Alert severity="error" sx={{ marginBottom: 2 }}>
+              {updateTaskError.message}
+            </Alert>
+          )}
           <UpdateTaskFormContent task={task} register={register} />
         </DialogContent>
         <DialogActions>

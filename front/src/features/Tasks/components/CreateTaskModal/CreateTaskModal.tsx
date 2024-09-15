@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   ButtonGroup,
@@ -48,7 +49,11 @@ export function CreateTaskModal(props: CreateTaskModalProps): JSX.Element {
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>タスク作成</DialogTitle>
         <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
-          {createTaskError && <p>{createTaskError.message}</p>}
+          {createTaskError && (
+            <Alert severity="error" sx={{ marginBottom: 2 }}>
+              {createTaskError.message}
+            </Alert>
+          )}
           <CreateTaskFormContent register={register} errors={errors} />
         </DialogContent>
         <DialogActions>

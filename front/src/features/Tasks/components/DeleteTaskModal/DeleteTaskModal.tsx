@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   ButtonGroup,
   Dialog,
@@ -43,7 +44,11 @@ export function DeleteTaskModal(props: DeleteTaskModalProps): JSX.Element {
     <Dialog open={isOpen} onClose={onClose} fullWidth>
       <DialogTitle>タスク削除</DialogTitle>
       <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
-        {deleteTaskError && <p>{deleteTaskError.message}</p>}
+        {deleteTaskError && (
+          <Alert severity="error" sx={{ marginBottom: 2 }}>
+            {deleteTaskError.message}
+          </Alert>
+        )}
         <DialogContentText>{task?.title}を削除しますか？</DialogContentText>
       </DialogContent>
       <DialogActions>
