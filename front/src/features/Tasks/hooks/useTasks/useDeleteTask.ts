@@ -1,4 +1,4 @@
-import { useDelete } from "@/hooks/useDelete";
+import { useDelete } from "@/hooks/request";
 import type { Task } from "@/types/task";
 import { ENDPOINT } from "./ENDPOINT";
 

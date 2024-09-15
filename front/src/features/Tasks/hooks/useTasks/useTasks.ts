@@ -1,4 +1,4 @@
-import { useGet } from "@/hooks/useGet";
+import { useGet } from "@/hooks/request";
 import type { Task } from "@/types/task";
 import { ENDPOINT } from "./ENDPOINT";
 

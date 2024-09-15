@@ -1,5 +1,5 @@
 import type { TaskParams } from "@/features/Tasks/types/taskParams";
-import { usePut } from "@/hooks/usePut";
+import { usePut } from "@/hooks/request";
 import type { Task } from "@/types/task";
 import { ENDPOINT } from "./ENDPOINT";
 
