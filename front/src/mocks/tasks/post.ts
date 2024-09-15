@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
 
+import type { ApiResponse } from "@/types/apiResponse";
 import type { Task } from "@/types/task";
 import { addTask, getTasks } from ".";
 
@@ -9,15 +10,10 @@ type PostTasksRequestBody = {
   title: string;
 };
 
-type PostTasksResponseBody = {
-  data: Task | null;
-  message: string;
-};
-
 export const post = http.post<
   PostTasksParams,
   PostTasksRequestBody,
-  PostTasksResponseBody,
+  ApiResponse<Task | null>,
   "/tasks"
 >("/tasks", async ({ request }) => {
   // return HttpResponse.error();

@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
 
+import type { ApiResponse } from "@/types/apiResponse";
 import type { Task } from "@/types/task";
 import { deleteTask, getTasks } from ".";
 
@@ -9,15 +10,10 @@ type DeleteTasksParams = {
 
 type DeleteTasksRequestBody = Record<string, never>;
 
-type DeleteTasksResponseBody = {
-  data: Task | null;
-  message: string;
-};
-
 export const delete_ = http.delete<
   DeleteTasksParams,
   DeleteTasksRequestBody,
-  DeleteTasksResponseBody,
+  ApiResponse<Task | null>,
   "/tasks/:id"
 >("/tasks/:id", async ({ params }) => {
   // return HttpResponse.error();
