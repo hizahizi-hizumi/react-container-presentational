@@ -28,10 +28,7 @@ export function useGet<TData>(
   const queryString = new URLSearchParams(query).toString();
   const urlWithQueryString = queryString ? `${url}?${queryString}` : url;
 
-  const { data, error, isLoading } = useSWR<TData, Error, string>(
-    urlWithQueryString,
-    fetcher,
-  );
+  const { data, error, isLoading } = useSWR<TData>(urlWithQueryString, fetcher);
 
   return { data, error, isLoading };
 }
