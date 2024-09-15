@@ -31,8 +31,10 @@ export function DeleteTaskModal(props: DeleteTaskModalProps): JSX.Element {
       throw new Error("Task is not found");
     }
 
-    await deleteTask(task.id);
-    onSuccess({ title: task.title });
+    try {
+      await deleteTask(task.id);
+      onSuccess({ title: task.title });
+    } catch (error) {}
   }
 
   return (
