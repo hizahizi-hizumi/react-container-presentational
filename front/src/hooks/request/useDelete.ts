@@ -6,10 +6,10 @@ interface FetcherArg {
   id: number;
 }
 
-async function fetcher<U>(
+async function fetcher<TData>(
   url: string,
   { arg }: { arg: FetcherArg },
-): Promise<U> {
+): Promise<TData> {
   const { id } = arg;
   const urlWithId = `${url}/${id}`;
 
@@ -20,7 +20,7 @@ async function fetcher<U>(
     },
   });
 
-  const result: ApiResponse<U> = await response.json();
+  const result: ApiResponse<TData> = await response.json();
 
   if (!response.ok) {
     throw new Error(result.errorMessage);
@@ -29,16 +29,16 @@ async function fetcher<U>(
   return result.data;
 }
 
-interface UseDeleteReturns<U> {
-  delete: (arg: FetcherArg) => Promise<U>;
+interface UseDeleteReturns<TData> {
+  delete: (arg: FetcherArg) => Promise<TData>;
   isMutating: boolean;
-  data: U | undefined;
+  data: TData | undefined;
   error: Error | undefined;
 }
 
-export function useDelete<U>(url: string): UseDeleteReturns<U> {
+export function useDelete<TData>(url: string): UseDeleteReturns<TData> {
   const { trigger, isMutating, data, error } = useSWRMutation<
-    U,
+    TData,
     Error,
     string,
     FetcherArg

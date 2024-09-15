@@ -2,14 +2,14 @@ import useSWRMutation from "swr/mutation";
 
 import type { ApiResponse } from "@/types/apiResponse";
 
-interface FetcherArg<T> {
-  params: T;
+interface FetcherArg<TParams> {
+  params: TParams;
 }
 
-async function fetcher<T, U>(
+async function fetcher<TParams, TData>(
   url: string,
-  { arg }: { arg: FetcherArg<T> },
-): Promise<U> {
+  { arg }: { arg: FetcherArg<TParams> },
+): Promise<TData> {
   const { params } = arg;
 
   const response = await fetch(url, {
@@ -20,7 +20,7 @@ async function fetcher<T, U>(
     body: JSON.stringify(params),
   });
 
-  const result: ApiResponse<U> = await response.json();
+  const result: ApiResponse<TData> = await response.json();
 
   if (!response.ok) {
     throw new Error(result.errorMessage);
@@ -29,19 +29,21 @@ async function fetcher<T, U>(
   return result.data;
 }
 
-interface UsePostReturns<T, U> {
-  post: (arg: FetcherArg<T>) => Promise<U>;
+interface UsePostReturns<TParams, TData> {
+  post: (arg: FetcherArg<TParams>) => Promise<TData>;
   isMutating: boolean;
-  data: U | undefined;
+  data: TData | undefined;
   error: Error | undefined;
 }
 
-export function usePost<T, U>(url: string): UsePostReturns<T, U> {
+export function usePost<TParams, TData>(
+  url: string,
+): UsePostReturns<TParams, TData> {
   const { trigger, isMutating, data, error } = useSWRMutation<
-    U,
+    TData,
     Error,
     string,
-    FetcherArg<T>
+    FetcherArg<TParams>
   >(url, fetcher);
 
   return { post: trigger, isMutating, data, error };
