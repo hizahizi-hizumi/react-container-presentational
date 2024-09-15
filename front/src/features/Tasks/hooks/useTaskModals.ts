@@ -1,6 +1,7 @@
-import type { Task } from "@/types/task";
 import { useState } from "react";
-import { useModal } from "./useModal";
+
+import { useModal } from "@/hooks/components/useModal";
+import type { Task } from "@/types/task";
 
 interface useTaskModalsReturns {
   create: {

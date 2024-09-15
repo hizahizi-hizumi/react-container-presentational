@@ -1,13 +1,14 @@
 import type React from "react";
 
 import { Typography } from "@mui/material";
+
+import { useSnackbar } from "@/hooks/components/useSnackbar";
 import { CreateTaskButton } from "./components/CreateTaskButton/CreateTaskButton";
 import { CreateTaskModal } from "./components/CreateTaskModal/CreateTaskModal";
 import { DeleteTaskModal } from "./components/DeleteTaskModal/DeleteTaskModal";
 import { SuccessSnackbar } from "./components/SuccessSnackbar/SuccessSnackbar";
 import { TaskList } from "./components/TaskList/TaskList";
 import { UpdateTaskModal } from "./components/UpdateTaskModal/UpdateTaskModal";
-import { useSnackbar } from "./hooks/useSnackbar";
 import { useTaskModals } from "./hooks/useTaskModals";
 import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
