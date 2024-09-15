@@ -28,7 +28,7 @@ export const post = http.post<
     return HttpResponse.json(
       {
         data: null,
-        message: `Task with title "${req.title}" already exists`,
+        errorMessage: `Task with title "${req.title}" already exists`,
       },
       { status: 400 },
     );
@@ -49,5 +49,5 @@ export const post = http.post<
 
   addTask(task);
 
-  return HttpResponse.json({ data: task, message: "" }, { status: 201 });
+  return HttpResponse.json({ data: task, errorMessage: "" }, { status: 201 });
 });

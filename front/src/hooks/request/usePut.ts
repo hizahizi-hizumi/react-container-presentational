@@ -25,7 +25,7 @@ async function fetcher<T, U>(
   const result: ApiResponse<U> = await response.json();
 
   if (!response.ok) {
-    throw new Error(result.message);
+    throw new Error(result.errorMessage);
   }
 
   return result.data;

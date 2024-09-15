@@ -29,7 +29,7 @@ export const put = http.put<
     return HttpResponse.json(
       {
         data: null,
-        message: `Task id ${params.id} is not exists`,
+        errorMessage: `Task id ${params.id} is not exists`,
       },
       { status: 404 },
     );
@@ -42,7 +42,7 @@ export const put = http.put<
     return HttpResponse.json(
       {
         data: null,
-        message: `Task with title "${req.title}" already exists`,
+        errorMessage: `Task with title "${req.title}" already exists`,
       },
       { status: 400 },
     );
@@ -55,5 +55,5 @@ export const put = http.put<
 
   updateTask(task);
 
-  return HttpResponse.json({ data: task, message: "" }, { status: 200 });
+  return HttpResponse.json({ data: task, errorMessage: "" }, { status: 200 });
 });

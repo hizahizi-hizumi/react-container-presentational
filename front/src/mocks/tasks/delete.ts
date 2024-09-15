@@ -25,7 +25,7 @@ export const delete_ = http.delete<
     return HttpResponse.json(
       {
         data: null,
-        message: `Task id ${params.id} is not exists`,
+        errorMessage: `Task id ${params.id} is not exists`,
       },
       { status: 404 },
     );
@@ -36,5 +36,5 @@ export const delete_ = http.delete<
   const index = tasks.findIndex((t) => t.id === Number(params.id));
   const task = tasks[index];
 
-  return HttpResponse.json({ data: task, message: "" }, { status: 200 });
+  return HttpResponse.json({ data: task, errorMessage: "" }, { status: 200 });
 });

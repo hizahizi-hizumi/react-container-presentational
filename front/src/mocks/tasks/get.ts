@@ -15,6 +15,6 @@ export const get = http.get<
 >("/tasks", () => {
   return HttpResponse.json({
     data: getTasks(),
-    message: "",
+    errorMessage: "",
   });
 });

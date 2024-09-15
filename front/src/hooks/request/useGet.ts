@@ -7,7 +7,7 @@ async function fetcher<T>(url: string): Promise<T> {
   const result: ApiResponse<T> = await response.json();
 
   if (!response.ok) {
-    throw new Error(result.message);
+    throw new Error(result.errorMessage);
   }
 
   return result.data;
