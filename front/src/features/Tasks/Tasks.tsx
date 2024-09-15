@@ -30,17 +30,17 @@ export function Tasks(): JSX.Element {
     message,
   } = useSnackbar();
 
-  function onCreateSuccess(task: TaskParams) {
+  function handleCreateSuccess(task: TaskParams) {
     openSnackbar(`タスク「${task.title}」を作成しました`);
     create.close();
   }
 
-  function onUpdateSuccess(task: TaskParams) {
+  function handleUpdateSuccess(task: TaskParams) {
     openSnackbar(`タスク「${task.title}」を更新しました`);
     update.close();
   }
 
-  function onDeleteSuccess(task: TaskParams) {
+  function handleDeleteSuccess(task: TaskParams) {
     openSnackbar(`タスク「${task.title}」を削除しました`);
     delete_.close();
   }
@@ -72,20 +72,20 @@ export function Tasks(): JSX.Element {
       <CreateTaskModal
         isOpen={create.isOpen}
         onClose={create.close}
-        onSuccess={onCreateSuccess}
+        onSuccess={handleCreateSuccess}
       />
 
       <UpdateTaskModal
         isOpen={update.isOpen}
         onClose={update.close}
-        onSuccess={onUpdateSuccess}
+        onSuccess={handleUpdateSuccess}
         task={selectedTask}
       />
 
       <DeleteTaskModal
         isOpen={delete_.isOpen}
         onClose={delete_.close}
-        onSuccess={onDeleteSuccess}
+        onSuccess={handleDeleteSuccess}
         task={selectedTask}
       />
     </>
