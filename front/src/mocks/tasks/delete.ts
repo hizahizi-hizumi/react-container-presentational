@@ -8,7 +8,7 @@ type DeleteTasksParams = {
   id: string;
 };
 
-type DeleteTasksRequestBody = Record<string, never>;
+type DeleteTasksRequestBody = never;
 
 export const delete_ = http.delete<
   DeleteTasksParams,

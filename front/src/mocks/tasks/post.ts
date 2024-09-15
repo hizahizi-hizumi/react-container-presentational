@@ -4,7 +4,7 @@ import type { ApiResponse } from "@/types/apiResponse";
 import type { Task } from "@/types/task";
 import { addTask, getTasks } from ".";
 
-type PostTasksParams = Record<string, never>;
+type PostTasksParams = never;
 
 type PostTasksRequestBody = {
   title: string;

@@ -4,8 +4,8 @@ import type { ApiResponse } from "@/types/apiResponse";
 import type { Task } from "@/types/task";
 import { getTasks } from "./";
 
-type GetTasksParams = Record<string, never>;
-type GetTasksRequestBody = Record<string, never>;
+type GetTasksParams = never;
+type GetTasksRequestBody = never;
 
 export const get = http.get<
   GetTasksParams,
