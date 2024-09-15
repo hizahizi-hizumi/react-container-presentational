@@ -36,10 +36,9 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
     if (!task) {
       throw new Error("Task is not found");
     }
-    try {
-      await updateTask(task.id, taskParams);
-      onSuccess(taskParams);
-    } catch (e) {}
+
+    await updateTask(task.id, taskParams);
+    onSuccess(taskParams);
   }
 
   const canSubmit = !isUpdating;

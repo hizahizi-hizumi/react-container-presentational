@@ -35,11 +35,9 @@ export function CreateTaskModal(props: CreateTaskModalProps): JSX.Element {
   } = useForm<TaskParams>();
 
   async function onSubmit(task: TaskParams) {
-    try {
-      await createTask(task);
-      onSuccess(task);
-      reset();
-    } catch (e) {}
+    await createTask(task);
+    onSuccess(task);
+    reset();
   }
 
   const canSubmit = !isCreating && isValid;
