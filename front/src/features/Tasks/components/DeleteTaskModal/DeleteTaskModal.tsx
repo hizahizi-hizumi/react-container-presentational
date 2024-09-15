@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  useTheme,
 } from "@mui/material";
 
 import type { Task } from "@/types/task";
@@ -24,8 +23,6 @@ interface DeleteTaskModalProps {
 export function DeleteTaskModal(props: DeleteTaskModalProps): JSX.Element {
   const { isOpen, onClose, onSuccess, task } = props;
 
-  const theme = useTheme();
-
   const { deleteTask, isDeleting, deleteTaskError } = useDeleteTask();
   const canSubmit = !isDeleting;
 
@@ -41,7 +38,7 @@ export function DeleteTaskModal(props: DeleteTaskModalProps): JSX.Element {
   return (
     <Dialog open={isOpen} onClose={onClose} fullWidth>
       <DialogTitle>タスク削除</DialogTitle>
-      <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
+      <DialogContent dividers sx={{ paddingY: 5 }}>
         {deleteTaskError && (
           <Alert severity="error" sx={{ marginBottom: 2 }}>
             {deleteTaskError.message}

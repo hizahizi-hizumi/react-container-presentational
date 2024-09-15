@@ -7,7 +7,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  useTheme,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 
@@ -25,8 +24,6 @@ interface UpdateTaskModalProps {
 
 export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
   const { task, isOpen, onClose, onSuccess } = props;
-
-  const theme = useTheme();
 
   const { updateTask, isUpdating, updateTaskError } = useUpdateTask();
 
@@ -47,7 +44,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
     <Dialog open={isOpen} onClose={onClose} fullWidth>
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>タスク更新</DialogTitle>
-        <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
+        <DialogContent dividers sx={{ paddingY: 5 }}>
           {updateTaskError && (
             <Alert severity="error" sx={{ marginBottom: 2 }}>
               {updateTaskError.message}
