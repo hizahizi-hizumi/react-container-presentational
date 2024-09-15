@@ -27,7 +27,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
 
   const theme = useTheme();
 
-  const { updateTask, updateTaskError } = useUpdateTask();
+  const { updateTask, isUpdating, updateTaskError } = useUpdateTask();
 
   const { handleSubmit, register } = useForm<TaskParams>();
 
@@ -41,7 +41,6 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
     } catch (e) {}
   }
 
-  const { isUpdating } = useUpdateTask();
   const canSubmit = !isUpdating;
 
   return (

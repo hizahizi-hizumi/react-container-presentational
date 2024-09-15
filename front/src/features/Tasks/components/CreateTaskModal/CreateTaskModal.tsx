@@ -24,7 +24,7 @@ export function CreateTaskModal(props: CreateTaskModalProps): JSX.Element {
   const { isOpen, onClose, onSuccess } = props;
   const theme = useTheme();
 
-  const { createTask, createTaskError } = useCreateTask();
+  const { createTask, isCreating, createTaskError } = useCreateTask();
 
   const {
     handleSubmit,
@@ -41,7 +41,6 @@ export function CreateTaskModal(props: CreateTaskModalProps): JSX.Element {
     } catch (e) {}
   }
 
-  const { isCreating } = useCreateTask();
   const canSubmit = !isCreating && isValid;
 
   return (
