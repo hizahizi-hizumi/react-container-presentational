@@ -12,14 +12,14 @@ interface UseUpdateTaskReturns {
 
 export function useUpdateTask(): UseUpdateTaskReturns {
   const {
-    trigger: updateTaskTrigger,
+    put: putTask,
     isMutating: isUpdating,
     data: updatedTask,
     error: updateError,
   } = usePut<TaskParams, Task>(ENDPOINT);
 
   async function updateTask(id: number, params: TaskParams) {
-    await updateTaskTrigger({ id, params });
+    await putTask({ id, params });
   }
 
   return { updateTask, isUpdating, updatedTask, updateError };

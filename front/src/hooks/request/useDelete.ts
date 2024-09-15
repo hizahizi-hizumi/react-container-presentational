@@ -30,7 +30,7 @@ async function fetcher<U>(
 }
 
 interface UseDeleteReturns<U> {
-  trigger: (arg: FetcherArg) => Promise<U>;
+  delete: (arg: FetcherArg) => Promise<U>;
   isMutating: boolean;
   data: U | undefined;
   error: Error | undefined;
@@ -44,5 +44,5 @@ export function useDelete<U>(url: string): UseDeleteReturns<U> {
     FetcherArg
   >(url, fetcher);
 
-  return { trigger, isMutating, data, error };
+  return { delete: trigger, isMutating, data, error };
 }

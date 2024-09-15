@@ -32,7 +32,7 @@ async function fetcher<T, U>(
 }
 
 interface UsePutReturns<T, U> {
-  trigger: (arg: FetcherArg<T>) => Promise<U>;
+  put: (arg: FetcherArg<T>) => Promise<U>;
   isMutating: boolean;
   data: U | undefined;
   error: Error | undefined;
@@ -46,5 +46,5 @@ export function usePut<T, U>(url: string): UsePutReturns<T, U> {
     FetcherArg<T>
   >(url, fetcher);
 
-  return { trigger, isMutating, data, error };
+  return { put: trigger, isMutating, data, error };
 }

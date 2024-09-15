@@ -12,14 +12,14 @@ interface UseCreateTaskReturns {
 
 export function useCreateTask(): UseCreateTaskReturns {
   const {
-    trigger: createTaskTrigger,
+    post: postTask,
     isMutating: isCreating,
     data: createdTask,
     error: createError,
   } = usePost<TaskParams, Task>(ENDPOINT);
 
   async function createTask(params: TaskParams) {
-    await createTaskTrigger({ params });
+    await postTask({ params });
   }
 
   return { createTask, isCreating, createdTask, createError };

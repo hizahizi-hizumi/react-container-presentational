@@ -30,7 +30,7 @@ async function fetcher<T, U>(
 }
 
 interface UsePostReturns<T, U> {
-  trigger: (arg: FetcherArg<T>) => Promise<U>;
+  post: (arg: FetcherArg<T>) => Promise<U>;
   isMutating: boolean;
   data: U | undefined;
   error: Error | undefined;
@@ -44,5 +44,5 @@ export function usePost<T, U>(url: string): UsePostReturns<T, U> {
     FetcherArg<T>
   >(url, fetcher);
 
-  return { trigger, isMutating, data, error };
+  return { post: trigger, isMutating, data, error };
 }

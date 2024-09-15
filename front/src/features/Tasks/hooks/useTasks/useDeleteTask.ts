@@ -11,14 +11,14 @@ interface UseDeleteTaskReturns {
 
 export function useDeleteTask(): UseDeleteTaskReturns {
   const {
-    trigger: deleteTaskTrigger,
+    delete: deleteTask_,
     isMutating: isDeleting,
     data: deletedTask,
     error: deleteError,
   } = useDelete<Task>(ENDPOINT);
 
   async function deleteTask(id: number) {
-    await deleteTaskTrigger({ id });
+    await deleteTask_({ id });
   }
 
   return { deleteTask, isDeleting, deletedTask, deleteError };
