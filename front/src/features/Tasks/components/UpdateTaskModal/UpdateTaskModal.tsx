@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   ButtonGroup,
   Dialog,
@@ -45,7 +46,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
 
   return (
     <Dialog open={isOpen} onClose={onClose} fullWidth>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>タスク更新</DialogTitle>
         <DialogContent dividers sx={{ paddingY: theme.spacing(5) }}>
           {updateError && <p>{updateError.message}</p>}
@@ -67,7 +68,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps): JSX.Element {
             </Button>
           </ButtonGroup>
         </DialogActions>
-      </form>
+      </Box>
     </Dialog>
   );
 }
