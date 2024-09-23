@@ -1,5 +1,6 @@
 import type { TaskParams } from "@/features/Tasks/types/taskParams";
-import { usePost } from "@/hooks/request";
+import { usePost } from "@/hooks/req";
+// import { usePost } from "@/hooks/request";
 import type { Task } from "@/types/task";
 import { ENDPOINT } from "./ENDPOINT";
 
@@ -13,13 +14,15 @@ interface UseCreateTaskReturns {
 export function useCreateTask(): UseCreateTaskReturns {
   const {
     post: postTask,
-    isMutating: isCreating,
+    isLoading: isCreating,
+    // isMutating: isCreating,
     data: createdTask,
     error: createTaskError,
   } = usePost<TaskParams, Task>(ENDPOINT);
 
   async function createTask(params: TaskParams) {
-    await postTask({ params });
+    await postTask(params);
+    // await postTask({ params });
   }
 
   return { createTask, isCreating, createdTask, createTaskError };
