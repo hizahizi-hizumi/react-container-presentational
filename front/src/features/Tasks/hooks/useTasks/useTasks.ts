@@ -6,15 +6,17 @@ interface UseTasksReturns {
   tasks: Task[];
   error: Error | undefined;
   isLoading: boolean;
+  isValidating: boolean;
 }
 
 export function useTasks(): UseTasksReturns {
-  const { data, error, isLoading } = useGet<Task[]>(ENDPOINT);
+  const { data, error, isLoading, isValidating } = useGet<Task[]>(ENDPOINT);
   const tasks = data ?? [];
 
   return {
     tasks,
     error,
     isLoading,
+    isValidating,
   };
 }

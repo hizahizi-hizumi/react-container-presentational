@@ -17,6 +17,7 @@ interface UseGetReturns<TData> {
   data: TData | undefined;
   error: Error | undefined;
   isLoading: boolean;
+  isValidating: boolean;
 }
 
 type Query = Record<string, string>;
@@ -28,7 +29,10 @@ export function useGet<TData>(
   const queryString = new URLSearchParams(query).toString();
   const urlWithQueryString = queryString ? `${url}?${queryString}` : url;
 
-  const { data, error, isLoading } = useSWR<TData>(urlWithQueryString, fetcher);
+  const { data, error, isLoading, isValidating } = useSWR<TData>(
+    urlWithQueryString,
+    fetcher,
+  );
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, isValidating };
 }

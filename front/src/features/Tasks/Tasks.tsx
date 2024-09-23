@@ -12,7 +12,7 @@ import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
 
 export function Tasks(): JSX.Element {
-  const { tasks, error, isLoading } = useTasks();
+  const { tasks, error, isLoading, isValidating } = useTasks();
 
   const {
     create,
@@ -45,7 +45,7 @@ export function Tasks(): JSX.Element {
     delete_.close();
   }
 
-  if (isLoading) {
+  if (isLoading || isValidating) {
     return <p>Loading...</p>;
   }
   if (error) {
