@@ -32,10 +32,10 @@ export const delete_ = http.delete<
     );
   }
 
-  deleteTask(Number(params.id));
-
   const index = tasks.findIndex((t) => t.id === Number(params.id));
   const task = tasks[index];
+
+  deleteTask(Number(params.id));
 
   return HttpResponse.json({ data: task, errorMessage: "" }, { status: 200 });
 });
