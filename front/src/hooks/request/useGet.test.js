@@ -13,10 +13,10 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function setupResponse(data, message, status) {
+function setupResponse(data, errorMessage, status) {
   server.use(
     http.get("/get", () => {
-      return HttpResponse.json({ data, message }, { status });
+      return HttpResponse.json({ data, errorMessage }, { status });
     }),
   );
 }
@@ -44,6 +44,7 @@ describe("useGet", () => {
         data: undefined,
         error: undefined,
         isLoading: true,
+        isValidating: true,
       });
 
       await waitFor(() => {
@@ -51,6 +52,7 @@ describe("useGet", () => {
           data: data,
           error: undefined,
           isLoading: false,
+          isValidating: false,
         });
       });
     });
@@ -70,6 +72,7 @@ describe("useGet", () => {
           data: undefined,
           error: undefined,
           isLoading: true,
+          isValidating: true,
         });
 
         await waitFor(() => {
@@ -77,6 +80,7 @@ describe("useGet", () => {
             data: data,
             error: undefined,
             isLoading: false,
+            isValidating: false,
           });
         });
       });
@@ -98,6 +102,7 @@ describe("useGet", () => {
           data: undefined,
           error: undefined,
           isLoading: true,
+          isValidating: true,
         });
 
         await waitFor(() => {
@@ -105,6 +110,7 @@ describe("useGet", () => {
             data: undefined,
             error: new Error(errorMessage),
             isLoading: false,
+            isValidating: false,
           });
         });
       });
@@ -122,6 +128,7 @@ describe("useGet", () => {
           data: undefined,
           error: undefined,
           isLoading: true,
+          isValidating: true,
         });
 
         await waitFor(() => {
@@ -129,6 +136,7 @@ describe("useGet", () => {
             data: undefined,
             error: new TypeError("Failed to fetch"),
             isLoading: false,
+            isValidating: false,
           });
         });
       });

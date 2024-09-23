@@ -15,10 +15,10 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function setupResponse(data, message, status) {
+function setupResponse(data, errorMessage, status) {
   server.use(
     http.delete(`${ENDPOINT}/${id}`, () => {
-      return HttpResponse.json({ data, message }, { status });
+      return HttpResponse.json({ data, errorMessage }, { status });
     }),
   );
 }
@@ -48,7 +48,7 @@ describe("useDeleteTask", () => {
         deleteTask: expect.any(Function),
         isDeleting: false,
         deletedTask: undefined,
-        deleteError: undefined,
+        deleteTaskError: undefined,
       });
 
       await waitFor(async () => {
@@ -58,7 +58,7 @@ describe("useDeleteTask", () => {
           deleteTask: expect.any(Function),
           isDeleting: false,
           deletedTask: task,
-          deleteError: undefined,
+          deleteTaskError: undefined,
         });
       });
     });
@@ -81,7 +81,7 @@ describe("useDeleteTask", () => {
           deleteTask: expect.any(Function),
           isDeleting: false,
           deletedTask: undefined,
-          deleteError: undefined,
+          deleteTaskError: undefined,
         });
 
         await waitFor(async () => {
@@ -91,7 +91,7 @@ describe("useDeleteTask", () => {
             deleteTask: expect.any(Function),
             isDeleting: false,
             deletedTask: undefined,
-            deleteError: new Error(errorMessage),
+            deleteTaskError: new Error(errorMessage),
           });
         });
       });
@@ -111,7 +111,7 @@ describe("useDeleteTask", () => {
           deleteTask: expect.any(Function),
           isDeleting: false,
           deletedTask: undefined,
-          deleteError: undefined,
+          deleteTaskError: undefined,
         });
 
         await waitFor(async () => {
@@ -121,7 +121,7 @@ describe("useDeleteTask", () => {
             deleteTask: expect.any(Function),
             isDeleting: false,
             deletedTask: undefined,
-            deleteError: new TypeError(errorMessage),
+            deleteTaskError: new TypeError(errorMessage),
           });
         });
       });

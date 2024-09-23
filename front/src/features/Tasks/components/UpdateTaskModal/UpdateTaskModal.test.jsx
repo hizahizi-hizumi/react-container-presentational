@@ -11,10 +11,10 @@ describe("UpdateTaskModal", () => {
   const mockOnSuccess = vi.fn();
   const task = { id: 1, title: "Existing Task" };
 
-  const renderModal = (isUpdating = false, updateError = null) => {
+  const renderModal = (isUpdating = false, updateTaskError = null) => {
     useUpdateTask.mockReturnValue({
       updateTask: vi.fn(),
-      updateError,
+      updateTaskError,
       isUpdating,
     });
 

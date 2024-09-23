@@ -11,11 +11,11 @@ describe("DeleteTaskModal", () => {
   const mockOnSuccess = vi.fn();
   const task = { id: 1, title: "Existing Task" };
 
-  const renderModal = (isDeleting = false, deleteError = null) => {
+  const renderModal = (isDeleting = false, deleteTaskError = null) => {
     useDeleteTask.mockReturnValue({
       deleteTask: vi.fn(),
       isDeleting,
-      deleteError,
+      deleteTaskError,
     });
 
     render(

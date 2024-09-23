@@ -13,10 +13,10 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function setupResponse(data, message, status) {
+function setupResponse(data, errorMessage, status) {
   server.use(
     http.delete("/delete/1", () => {
-      return HttpResponse.json({ data, message }, { status });
+      return HttpResponse.json({ data, errorMessage }, { status });
     }),
   );
 }
@@ -40,16 +40,16 @@ describe("useDelete", () => {
 
     it("データ削除が成功すること", async () => {
       const { result } = renderHook(() => useDelete("/delete"));
-      const { trigger } = result.current;
+      const { delete: delete_ } = result.current;
 
       let response;
       await waitFor(async () => {
-        response = await trigger({ id });
+        response = await delete_({ id });
       });
 
       expect(response).toEqual(data);
       expect(result.current).toEqual({
-        trigger: expect.any(Function),
+        delete: expect.any(Function),
         isMutating: false,
         data: data,
         error: undefined,
@@ -68,14 +68,14 @@ describe("useDelete", () => {
 
       it("エラーを返すこと", async () => {
         const { result } = renderHook(() => useDelete("/delete"));
-        const { trigger } = result.current;
+        const { delete: delete_ } = result.current;
 
         await waitFor(async () => {
-          await expect(trigger({ id })).rejects.toThrow(errorMessage);
+          await expect(delete_({ id })).rejects.toThrow(errorMessage);
         });
 
         expect(result.current).toEqual({
-          trigger: expect.any(Function),
+          delete: expect.any(Function),
           isMutating: false,
           data: undefined,
           error: new Error(errorMessage),
@@ -92,14 +92,14 @@ describe("useDelete", () => {
 
       it("ネットワークエラーを返すこと", async () => {
         const { result } = renderHook(() => useDelete("/delete"));
-        const { trigger } = result.current;
+        const { delete: delete_ } = result.current;
 
         await waitFor(async () => {
-          await expect(trigger({ id })).rejects.toThrow("Failed to fetch");
+          await expect(delete_({ id })).rejects.toThrow("Failed to fetch");
         });
 
         expect(result.current).toEqual({
-          trigger: expect.any(Function),
+          delete: expect.any(Function),
           isMutating: false,
           data: undefined,
           error: new Error("Failed to fetch"),

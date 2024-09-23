@@ -10,10 +10,10 @@ describe("CreateTaskModal", () => {
   const mockOnClose = vi.fn();
   const mockOnSuccess = vi.fn();
 
-  const renderModal = async (isCreating = false, createError = null) => {
+  const renderModal = async (isCreating = false, createTaskError = null) => {
     useCreateTask.mockReturnValue({
       createTask: vi.fn(),
-      createError,
+      createTaskError,
       isCreating,
     });
 

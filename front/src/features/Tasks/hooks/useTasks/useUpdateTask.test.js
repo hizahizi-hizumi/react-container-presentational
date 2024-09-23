@@ -15,10 +15,10 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function setupResponse(data, message, status) {
+function setupResponse(data, errorMessage, status) {
   server.use(
     http.put(`${ENDPOINT}/${id}`, () => {
-      return HttpResponse.json({ data, message }, { status });
+      return HttpResponse.json({ data, errorMessage }, { status });
     }),
   );
 }
@@ -48,7 +48,7 @@ describe("useUpdateTask", () => {
         updateTask: expect.any(Function),
         isUpdating: false,
         updatedTask: undefined,
-        updateError: undefined,
+        updateTaskError: undefined,
       });
 
       await waitFor(async () => {
@@ -58,7 +58,7 @@ describe("useUpdateTask", () => {
           updateTask: expect.any(Function),
           isUpdating: false,
           updatedTask: task,
-          updateError: undefined,
+          updateTaskError: undefined,
         });
       });
     });
@@ -81,7 +81,7 @@ describe("useUpdateTask", () => {
           updateTask: expect.any(Function),
           isUpdating: false,
           updatedTask: undefined,
-          updateError: undefined,
+          updateTaskError: undefined,
         });
 
         await waitFor(async () => {
@@ -91,7 +91,7 @@ describe("useUpdateTask", () => {
             updateTask: expect.any(Function),
             isUpdating: false,
             updatedTask: undefined,
-            updateError: new Error(errorMessage),
+            updateTaskError: new Error(errorMessage),
           });
         });
       });
@@ -111,7 +111,7 @@ describe("useUpdateTask", () => {
           updateTask: expect.any(Function),
           isUpdating: false,
           updatedTask: undefined,
-          updateError: undefined,
+          updateTaskError: undefined,
         });
 
         await waitFor(async () => {
@@ -121,7 +121,7 @@ describe("useUpdateTask", () => {
             updateTask: expect.any(Function),
             isUpdating: false,
             updatedTask: undefined,
-            updateError: new TypeError(errorMessage),
+            updateTaskError: new TypeError(errorMessage),
           });
         });
       });

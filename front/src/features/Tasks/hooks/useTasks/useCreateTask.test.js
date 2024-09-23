@@ -14,10 +14,10 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function setupResponse(data, message, status) {
+function setupResponse(data, errorMessage, status) {
   server.use(
     http.post(ENDPOINT, () => {
-      return HttpResponse.json({ data, message }, { status });
+      return HttpResponse.json({ data, errorMessage }, { status });
     }),
   );
 }
@@ -48,7 +48,7 @@ describe("useCreateTask", () => {
         createTask: expect.any(Function),
         isCreating: false,
         createdTask: undefined,
-        createError: undefined,
+        createTaskError: undefined,
       });
 
       await waitFor(async () => {
@@ -58,7 +58,7 @@ describe("useCreateTask", () => {
           createTask: expect.any(Function),
           isCreating: false,
           createdTask: task,
-          createError: undefined,
+          createTaskError: undefined,
         });
       });
     });
@@ -81,7 +81,7 @@ describe("useCreateTask", () => {
           createTask: expect.any(Function),
           isCreating: false,
           createdTask: undefined,
-          createError: undefined,
+          createTaskError: undefined,
         });
 
         await waitFor(async () => {
@@ -91,7 +91,7 @@ describe("useCreateTask", () => {
             createTask: expect.any(Function),
             isCreating: false,
             createdTask: undefined,
-            createError: new Error(errorMessage),
+            createTaskError: new Error(errorMessage),
           });
         });
       });
@@ -111,7 +111,7 @@ describe("useCreateTask", () => {
           createTask: expect.any(Function),
           isCreating: false,
           createdTask: undefined,
-          createError: undefined,
+          createTaskError: undefined,
         });
 
         await waitFor(async () => {
@@ -121,7 +121,7 @@ describe("useCreateTask", () => {
             createTask: expect.any(Function),
             isCreating: false,
             createdTask: undefined,
-            createError: new TypeError(errorMessage),
+            createTaskError: new TypeError(errorMessage),
           });
         });
       });

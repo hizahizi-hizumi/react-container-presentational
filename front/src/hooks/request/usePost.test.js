@@ -13,10 +13,10 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function setupResponse(data, message, status) {
+function setupResponse(data, errorMessage, status) {
   server.use(
     http.post("/post", () => {
-      return HttpResponse.json({ data, message }, { status });
+      return HttpResponse.json({ data, errorMessage }, { status });
     }),
   );
 }
@@ -40,16 +40,16 @@ describe("usePost", () => {
 
     it("データ送信が成功すること", async () => {
       const { result } = renderHook(() => usePost("/post"));
-      const { trigger } = result.current;
+      const { post } = result.current;
 
       let response;
       await waitFor(async () => {
-        response = await trigger({ params });
+        response = await post({ params });
       });
 
       expect(response).toEqual(data);
       expect(result.current).toEqual({
-        trigger: expect.any(Function),
+        post: expect.any(Function),
         isMutating: false,
         data: data,
         error: undefined,
@@ -68,14 +68,14 @@ describe("usePost", () => {
 
       it("エラーを返すこと", async () => {
         const { result } = renderHook(() => usePost("/post"));
-        const { trigger } = result.current;
+        const { post } = result.current;
 
         await waitFor(async () => {
-          await expect(trigger({ params })).rejects.toThrow(errorMessage);
+          await expect(post({ params })).rejects.toThrow(errorMessage);
         });
 
         expect(result.current).toEqual({
-          trigger: expect.any(Function),
+          post: expect.any(Function),
           isMutating: false,
           data: undefined,
           error: new Error(errorMessage),
@@ -92,14 +92,14 @@ describe("usePost", () => {
 
       it("ネットワークエラーを返すこと", async () => {
         const { result } = renderHook(() => usePost("/post"));
-        const { trigger } = result.current;
+        const { post } = result.current;
 
         await waitFor(async () => {
-          await expect(trigger({ params })).rejects.toThrow("Failed to fetch");
+          await expect(post({ params })).rejects.toThrow("Failed to fetch");
         });
 
         expect(result.current).toEqual({
-          trigger: expect.any(Function),
+          post: expect.any(Function),
           isMutating: false,
           data: undefined,
           error: new Error("Failed to fetch"),

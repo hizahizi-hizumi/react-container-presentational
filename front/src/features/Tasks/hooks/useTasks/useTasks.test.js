@@ -10,14 +10,14 @@ const server = setupServer();
 beforeAll(() => server.listen());
 afterEach(() => {
   server.resetHandlers();
-  mutate(ENDPOINT, undefined, true); // useSWR のキャッシュをリセット
+  mutate(ENDPOINT, undefined, true, false); // useSWR のキャッシュをリセット
 });
 afterAll(() => server.close());
 
-function setupResponse(data, message, status) {
+function setupResponse(data, errorMessage, status) {
   server.use(
     http.get(ENDPOINT, () => {
-      return HttpResponse.json({ data, message }, { status });
+      return HttpResponse.json({ data, errorMessage }, { status });
     }),
   );
 }
@@ -45,6 +45,7 @@ describe("useTasks", () => {
         tasks: [],
         error: undefined,
         isLoading: true,
+        isValidating: true,
       });
 
       await waitFor(() => {
@@ -52,6 +53,7 @@ describe("useTasks", () => {
           tasks,
           error: undefined,
           isLoading: false,
+          isValidating: false,
         });
       });
     });
@@ -72,6 +74,7 @@ describe("useTasks", () => {
           tasks: [],
           error: undefined,
           isLoading: true,
+          isValidating: true,
         });
 
         await waitFor(() => {
@@ -79,6 +82,7 @@ describe("useTasks", () => {
             tasks: [],
             error: new Error(errorMessage),
             isLoading: false,
+            isValidating: false,
           });
         });
       });
@@ -96,6 +100,7 @@ describe("useTasks", () => {
           tasks: [],
           error: undefined,
           isLoading: true,
+          isValidating: true,
         });
 
         await waitFor(() => {
@@ -103,6 +108,7 @@ describe("useTasks", () => {
             tasks: [],
             error: new TypeError("Failed to fetch"),
             isLoading: false,
+            isValidating: false,
           });
         });
       });
