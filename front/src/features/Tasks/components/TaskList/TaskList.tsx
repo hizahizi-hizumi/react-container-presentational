@@ -1,15 +1,8 @@
-import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
-import {
-  Button,
-  ButtonGroup,
-  Grid,
-  List,
-  ListItem,
-  Typography,
-} from "@mui/material";
+import { List } from "@mui/material";
 
 import { useTasks } from "@/features/Tasks/hooks/useTasks";
 import type { Task } from "@/types/task";
+import { TaskItem } from "../TaskItem/TaskItem";
 
 interface TaskListProps {
   onEditButtonClick: (task: Task) => void;
@@ -36,33 +29,12 @@ export function TaskList(props: TaskListProps): JSX.Element {
     <>
       <List>
         {tasks.map((task) => (
-          <ListItem key={task.id} divider>
-            <Grid container>
-              <Grid item xs={10} sx={{ display: "flex", alignItems: "center" }}>
-                <Typography>{task.title}</Typography>
-              </Grid>
-              <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
-                <ButtonGroup size="small">
-                  <Button
-                    color="inherit"
-                    onClick={() => onEditButtonClick(task)}
-                    variant="contained"
-                    disableElevation
-                  >
-                    <EditIcon />
-                  </Button>
-                  <Button
-                    color="error"
-                    onClick={() => onDeleteButtonClick(task)}
-                    variant="contained"
-                    disableElevation
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </ButtonGroup>
-              </Grid>
-            </Grid>
-          </ListItem>
+          <TaskItem
+            key={task.id}
+            task={task}
+            onEditButtonClick={onEditButtonClick}
+            onDeleteButtonClick={onDeleteButtonClick}
+          />
         ))}
       </List>
       {isValidating && <p>更新中</p>}
