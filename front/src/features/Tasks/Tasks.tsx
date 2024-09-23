@@ -8,12 +8,9 @@ import { SuccessSnackbar } from "./components/SuccessSnackbar/SuccessSnackbar";
 import { TaskList } from "./components/TaskList/TaskList";
 import { UpdateTaskModal } from "./components/UpdateTaskModal/UpdateTaskModal";
 import { useTaskModals } from "./hooks/useTaskModals";
-import { useTasks } from "./hooks/useTasks";
 import type { TaskParams } from "./types/taskParams";
 
 export function Tasks(): JSX.Element {
-  const { tasks, error, isLoading, isValidating } = useTasks();
-
   const {
     create,
     update,
@@ -45,20 +42,12 @@ export function Tasks(): JSX.Element {
     delete_.close();
   }
 
-  if (isLoading || isValidating) {
-    return <p>Loading...</p>;
-  }
-  if (error) {
-    return <p>failed to Load</p>;
-  }
-
   return (
     <>
       <Typography variant="h4">Tasks</Typography>
       <CreateTaskButton onClick={create.open} />
 
       <TaskList
-        tasks={tasks}
         onEditButtonClick={handleEditButtonClick}
         onDeleteButtonClick={handleDeleteButtonClick}
       />
