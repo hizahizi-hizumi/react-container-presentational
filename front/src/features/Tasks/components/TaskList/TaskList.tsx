@@ -18,7 +18,7 @@ export function TaskList(props: TaskListProps): JSX.Element {
   }
 
   if (error) {
-    return <p>読み込みに失敗しました</p>;
+    return <p>タスク取得中にエラーが発生しました: {error.message}</p>;
   }
 
   if (tasks.length === 0) {
