@@ -1,6 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
+import { useTasks } from "../../hooks/useTasks";
 import { TaskList } from "./TaskList";
+
+vi.mock("../../hooks/useTasks");
 
 describe("TaskList", () => {
   const mockOnUpdate = vi.fn();
@@ -10,28 +14,35 @@ describe("TaskList", () => {
     { id: 2, title: "Task 2" },
   ];
 
+  const renderList = async (tasks) => {
+    useTasks.mockReturnValue({
+      tasks,
+    });
+
+    await waitFor(() => {
+      render(
+        <TaskList
+          onEditButtonClick={mockOnUpdate}
+          onDeleteButtonClick={mockOnDelete}
+        />,
+      );
+    });
+  };
+
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   describe("タスクがないとき", () => {
     it("'タスクがありません' が表示されること", () => {
-      render(
-        <TaskList tasks={[]} onUpdate={mockOnUpdate} onDelete={mockOnDelete} />,
-      );
+      renderList([]);
       expect(screen.getByText("タスクがありません")).toBeInTheDocument();
     });
   });
 
   describe("タスクがあるとき", () => {
     it("タスクリストが表示されること", () => {
-      render(
-        <TaskList
-          tasks={tasks}
-          onUpdate={mockOnUpdate}
-          onDelete={mockOnDelete}
-        />,
-      );
+      renderList(tasks);
       for (const task of tasks) {
         expect(screen.getByText(task.title)).toBeInTheDocument();
       }
@@ -40,13 +51,7 @@ describe("TaskList", () => {
 
   describe("更新ボタンがクリックされたとき", () => {
     it("onUpdate が呼び出されること", () => {
-      render(
-        <TaskList
-          tasks={tasks}
-          onUpdate={mockOnUpdate}
-          onDelete={mockOnDelete}
-        />,
-      );
+      renderList(tasks);
       fireEvent.click(screen.getAllByTestId("EditIcon")[0].closest("button"));
       expect(mockOnUpdate).toHaveBeenCalledWith(tasks[0]);
     });
@@ -54,13 +59,7 @@ describe("TaskList", () => {
 
   describe("削除ボタンがクリックされたとき", () => {
     it("onDelete が呼び出されること", () => {
-      render(
-        <TaskList
-          tasks={tasks}
-          onUpdate={mockOnUpdate}
-          onDelete={mockOnDelete}
-        />,
-      );
+      renderList(tasks);
       fireEvent.click(screen.getAllByTestId("DeleteIcon")[0].closest("button"));
       expect(mockOnDelete).toHaveBeenCalledWith(tasks[0]);
     });
